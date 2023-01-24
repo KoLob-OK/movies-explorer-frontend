@@ -4,8 +4,7 @@ import Main from "../Main/Main";
 
 function App() {
   return (
-    <div className="App">
-      <p>Привет, мир! Здесь начинается приложение Movies Explorer</p>
+    <div className="page">
         <Main />
     </div>
   );
