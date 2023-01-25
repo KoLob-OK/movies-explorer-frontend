@@ -56,7 +56,7 @@
     transition: opacity .3s linear;
 }
 
-.header__button {
+.header__button-login {
     padding: 8px 20px;
     background-color: #3DDC84;
     text-decoration: none;
@@ -125,7 +125,7 @@
     opacity: .6;
 }
 
-.header__button:hover {
+.header__button-login:hover {
     opacity: .6;
 }
 
@@ -149,7 +149,7 @@
         padding: 18px 14px;
     }
 
-    .header__button {
+    .header__button-login {
         padding: 5px 12px;
         font-size: 10px;
     }
