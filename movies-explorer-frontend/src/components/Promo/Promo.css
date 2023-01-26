@@ -46,21 +46,18 @@
     width: 129px;
     height: 36px;
     background: none;
-    text-decoration: none;
-    font-style: normal;
     font-weight: 500;
     font-size: 12px;
     line-height: 16px;
     border-radius: 3px;
     cursor: pointer;
     box-sizing: border-box;
-    transition: opacity .3s linear;
     color: #FFF;
     border: 1px solid rgba(255, 255, 255, .6);
     align-self: end;
-    margin: 0;
     padding: 10px 0;
     text-align: center;
+    transition: opacity .3s linear;
 }
 
 .promo__image {

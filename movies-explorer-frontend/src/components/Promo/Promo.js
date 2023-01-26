@@ -12,7 +12,7 @@ const Promo = () => {
     };
 
     return (
-        <section className='promo'>
+        <section className='promo' id='promo'>
             <Header/>
             <div className='promo__container'>
                 <div className='promo__text-container'>
@@ -24,7 +24,10 @@ const Promo = () => {
                     </h2>
                 </div>
                 <img className='promo__image' src={promoImage} alt='Глобус, сверстанный из слова web'/>
-                <a className="promo__button-more" href={link.ref}>Узнать больше</a>
+                <button className="promo__button-more" onClick={() => {
+                    document.location = link.ref
+                }}>Узнать больше
+                </button>
             </div>
         </section>
     )
