@@ -6,6 +6,11 @@ import Header from '../Header/Header';
 import promoImage from '../../images/promo-logo.svg';
 
 const Promo = () => {
+    const link = {
+        title: "О проекте",
+        ref: "#about-project"
+    };
+
     return (
         <section className='promo'>
             <Header/>
@@ -19,7 +24,7 @@ const Promo = () => {
                     </h2>
                 </div>
                 <img className='promo__image' src={promoImage} alt='Глобус, сверстанный из слова web'/>
-                <button className="promo__button-more">Узнать больше</button>
+                <a className="promo__button-more" href={link.ref}>Узнать больше</a>
             </div>
         </section>
     )

@@ -1,5 +1,5 @@
 .promo {
-    height: 100vh;
+    /*height: 100vh;*/
     background-color: #073042;
     box-sizing: border-box;
 }
@@ -28,7 +28,6 @@
     font-size: 50px;
     line-height: 58px;
     max-width: 640px;
-    text-align: left;
 }
 
 .promo__subtitle {
@@ -39,7 +38,6 @@
     font-size: 13px;
     line-height: 16px;
     max-width: 310px;
-    text-align: left;
     mix-blend-mode: normal;
     opacity: .5;
 }
@@ -61,7 +59,8 @@
     border: 1px solid rgba(255, 255, 255, .6);
     align-self: end;
     margin: 0;
-    padding: 0;
+    padding: 10px 0;
+    text-align: center;
 }
 
 .promo__image {
