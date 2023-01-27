@@ -14,6 +14,7 @@
 .header__logo {
     width: 38px;
     height: 38px;
+    cursor: pointer;
 }
 
 .header__films-navigation {
@@ -29,7 +30,7 @@
     font-style: normal;
     font-weight: 500;
     color: #FFF;
-    transition: opacity .3s linear;
+    transition: opacity .3s linear, color .3s linear;
 }
 
 .header__films_saved {
@@ -37,7 +38,7 @@
     font-style: normal;
     font-weight: 400;
     color: #FFF;
-    transition: opacity .3s linear;
+    transition: opacity .3s linear, color .3s linear;
 }
 
 .header__right-menu {
@@ -53,7 +54,7 @@
     font-size: 12px;
     line-height: 16px;
     color: #FFF;
-    transition: opacity .3s linear;
+    transition: transform .3s linear, opacity .2s linear, color .2s linear;
 }
 
 .header__button-login {
@@ -68,7 +69,7 @@
     border: none;
     cursor: pointer;
     box-sizing: border-box;
-    transition: opacity .3s linear;
+    transition: transform .3s linear, opacity .3s linear;
     /*display: none;*/
 }
 
@@ -115,21 +116,27 @@
 
 .header__films:hover {
     opacity: .6;
+    color: #3DDC84;
 }
 
 .header__films_saved:hover {
     opacity: .6;
+    color: #3DDC84;
 }
 
 .header__link:hover {
+    transform: scale(1.1);
     opacity: .6;
+    color: #3DDC84;
 }
 
 .header__button-login:hover {
+    transform: scale(1.1);
     opacity: .6;
 }
 
 .header__button-profile:hover {
+    transform: scale(1.1);
     opacity: .6;
 }
 
