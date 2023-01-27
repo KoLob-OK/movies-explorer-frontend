@@ -33,10 +33,19 @@
     padding: 110px 70px 101px;
 }
 
+.section__block_type_portfolio {
+    padding: 0 70px 125px;
+}
+
 @media screen and (max-width: 984px) {
     .section__block {
         padding: 90px 50px;
     }
+
+    .section__block_type_portfolio {
+        padding: 0 50px 90px;
+    }
+
 }
 
 @media screen and (max-width: 568px) {
@@ -52,6 +61,9 @@
         padding: 70px 14px;
     }
 
+    .section__block_type_portfolio {
+        padding: 0 14px 70px;
+    }
 
     .section__title {
         font-size: 18px;
