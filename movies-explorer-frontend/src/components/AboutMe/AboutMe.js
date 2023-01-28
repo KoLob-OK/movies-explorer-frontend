@@ -25,7 +25,7 @@ const AboutMe = () => {
             частности в области IT. После того, как прошёл курс по веб-разработке, начал заниматься фриланс-заказами и
             ушёл с постоянной работы.
           </p>
-                    <a className='about-me__link' href={activity.ref} target='_blank'>{activity.title}</a>
+                    <a className='link about-me__link' href={activity.ref} target='_blank'>{activity.title}</a>
                 </div>
                 <img className='about-me__photo' src={photo} alt='Фото студента' />
             </div>

@@ -26,19 +26,15 @@
 }
 
 .header__films {
-    text-decoration: none;
     font-style: normal;
     font-weight: 500;
     color: #FFF;
-    transition: opacity .3s linear, color .3s linear;
 }
 
 .header__films_saved {
-    text-decoration: none;
     font-style: normal;
     font-weight: 400;
     color: #FFF;
-    transition: opacity .3s linear, color .3s linear;
 }
 
 .header__right-menu {
@@ -48,13 +44,11 @@
 }
 
 .header__link {
-    text-decoration: none;
     font-style: normal;
     font-weight: 500;
     font-size: 12px;
     line-height: 16px;
     color: #FFF;
-    transition: transform .3s linear, opacity .2s linear, color .2s linear;
 }
 
 .header__button-login {
@@ -112,22 +106,6 @@
     border: none;
     padding: 10px;
     align-self: center;
-}
-
-.header__films:hover {
-    opacity: .6;
-    color: #3DDC84;
-}
-
-.header__films_saved:hover {
-    opacity: .6;
-    color: #3DDC84;
-}
-
-.header__link:hover {
-    transform: scale(1.1);
-    opacity: .6;
-    color: #3DDC84;
 }
 
 .header__button-login:hover {

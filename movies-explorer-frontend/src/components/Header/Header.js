@@ -9,17 +9,17 @@ const Header = () => {
         <header className='header page__header' id='header'>
             <div className='header__left-menu'>
                 <img
-                    className='header__logo'
+                    className='link header__logo'
                     src={headerLogo}
                     alt='Логотип в форме кольца'
                 />
                 <nav className='header__films-navigation'>
-                    <a href='#' className='header__films'>Фильмы</a>
-                    <a href='#' className='header__films_saved'>Сохранённые фильмы</a>
+                    <a href='#' className='link header__films'>Фильмы</a>
+                    <a href='#' className='link header__films_saved'>Сохранённые фильмы</a>
                 </nav>
             </div>
             <nav className='header__right-menu'>
-                <a href='/signup' className='header__link'>Регистрация</a>
+                <a href='/signup' className='link header__link'>Регистрация</a>
                 <button className='header__button-login'>Войти</button>
                 <button className='header__button-profile'>
                     <span className='header__button-text'>Аккаунт</span>

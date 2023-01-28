@@ -4,15 +4,15 @@ const Portfolio = () => {
     const projects = [
         {
             title: 'Статичный сайт',
-            reference: 'https://kolob-ok.github.io/How-to-learn'
+            ref: 'https://kolob-ok.github.io/How-to-learn'
         },
         {
             title: 'Адаптивный сайт',
-            reference: 'https://kolob-ok.github.io/Russian-travel'
+            ref: 'https://kolob-ok.github.io/Russian-travel'
         },
         {
             title: 'Одностраничное приложение',
-            reference: 'https://github.com/KoLob-OK/react-mesto-api-full'
+            ref: 'https://github.com/KoLob-OK/react-mesto-api-full'
         },
     ];
 
@@ -22,15 +22,15 @@ const Portfolio = () => {
             <ul className='portfolio__projects'>
                 {projects.map((project) => (
                     <li className='portfolio__project'>
-                        <a className='portfolio__link'
-                           href={project.reference}
+                        <a className='link portfolio__link'
+                           href={project.ref}
                            target='_blank'>
                             {project.title}
                             {/*если нужен клик по всей строке*/}
                             {/*<span className='portfolio__link-icon'>↗</span>*/}
                         </a>
-                        <a className='portfolio__link-icon'
-                           href={project.reference}
+                        <a className='link portfolio__link-icon'
+                           href={project.ref}
                            target='_blank'>
                             ↗
                         </a>
