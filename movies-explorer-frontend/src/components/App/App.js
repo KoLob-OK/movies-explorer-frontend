@@ -1,5 +1,5 @@
-import React from "react";
-import {Route, Routes} from "react-router-dom";
+import { useState } from "react";
+import { Route, Routes } from "react-router-dom";
 
 import './App.css';
 
@@ -7,6 +7,8 @@ import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
 
 function App() {
+    const [isLoading, setIsLoading] = useState(true);
+
     return (
         <div className="page">
             <Routes>
@@ -14,7 +16,7 @@ function App() {
                     <Main/>
                 }/>
                 <Route path="/movies" element={
-                    <Movies/>
+                    <Movies isLoading={isLoading}/>
                 }/>
             </Routes>
         </div>
