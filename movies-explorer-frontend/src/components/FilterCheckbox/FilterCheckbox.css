@@ -1,0 +1,78 @@
+.filter__checkbox {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 14px;
+    transition: opacity .3s linear;
+    cursor: pointer;
+}
+
+.filter__checkbox:hover {
+    opacity: .6;
+}
+
+.filter__checkbox-name {
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 18px;
+    color: #FFF;
+}
+
+/* Скрыть чекбокс по-умолчанию */
+.filter__checkbox-default {
+    display: none;
+}
+
+/* Контейнер кнопки чекбокса */
+.filter__checkbox-button {
+    box-sizing: border-box;
+    position: relative;
+    width: 36px;
+    height: 20px;
+    border-radius: 20px;
+    border: 1px solid rgba(170, 170, 170, 0.5);
+    transition: background-color .3s ease-in-out;
+    background: none;
+}
+
+/* Нажатое состояние - фон */
+.filter__checkbox-default:checked + .filter__checkbox-button {
+    background-color: #3DDC84;
+}
+
+/* Псевдоэлемент ползунка (выключено) */
+.filter__checkbox-button::after {
+    box-sizing: border-box;
+    content: '';
+    height: 44%;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 10px; /* 1/2 радиуса контейнера (20px) */
+    transform: translate(-50%, -50%);
+    background-color: #F5F5F5;
+    transition: left .3s ease-in-out;
+}
+
+/* Ползунок (включено) */
+.filter__checkbox-default:checked + .filter__checkbox-button::after {
+    left: 26px;
+}
+
+@media screen and (max-width: 984px) {
+    .filter__checkbox {
+        gap: 12px;
+    }
+}
+
+@media screen and (max-width: 568px) {
+    .filter__checkbox {
+        gap: 13px;
+    }
+
+    .filter__checkbox-name {
+        font-size: 11px;
+    }
+}
+

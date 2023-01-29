@@ -1,10 +1,16 @@
+import React from 'react';
+import { useNavigate } from "react-router-dom";
 import './Header.css';
 
 import headerLogo from '../../images/header-logo.svg';
 import profileLogo from '../../images/header-profile-logo.svg';
 
-
 const Header = () => {
+    const navigate = useNavigate();
+    const navigateHome = () => {
+        navigate('/');
+    }
+
     return (
         <header className='header page__header' id='header'>
             <div className='header__left-menu'>
@@ -12,6 +18,7 @@ const Header = () => {
                     className='link header__logo'
                     src={headerLogo}
                     alt='Логотип в форме кольца'
+                    onClick={navigateHome}
                 />
                 <nav className='header__films-navigation'>
                     <a href='#' className='link header__films'>Фильмы</a>

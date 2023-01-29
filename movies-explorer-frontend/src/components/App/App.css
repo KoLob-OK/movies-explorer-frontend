@@ -37,6 +37,10 @@
     padding: 0 70px 125px;
 }
 
+.section__block_type_search {
+    padding: 80px 70px 10px;
+}
+
 .link {
     text-decoration: none;
     transition: opacity 0.3s linear;
@@ -53,6 +57,9 @@
 
     .section__block_type_portfolio {
         padding: 0 50px 90px;
+    }
+    .section__block_type_search {
+        padding: 60px 30px 10px;
     }
 
 }
@@ -72,6 +79,10 @@
 
     .section__block_type_portfolio {
         padding: 0 14px 70px;
+    }
+
+    .section__block_type_search {
+        padding: 60px 10px 10px;
     }
 
     .section__title {
