@@ -42,10 +42,6 @@
 }
 
 .section__block_type_movies {
-    display: flex;
-    flex-direction: column;
-    row-gap: 50px;
-    align-items: center;
     padding: 70px 70px 80px;
 }
 

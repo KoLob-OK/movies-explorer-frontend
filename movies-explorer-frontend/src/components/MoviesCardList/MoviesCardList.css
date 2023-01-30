@@ -1,4 +1,5 @@
 .movies__cards {
+    width: 100%;
     list-style: none;
     display: grid;
     justify-content: center;
@@ -9,9 +10,20 @@
     margin: 0 auto;
 }
 
+.movies__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 60px;
+    margin: 0;
+    padding: 0;
+}
+
 .movies__button {
-    width: 25%;
+    width: 320px;
     border: 1px solid #424242;
+    box-sizing: border-box;
     background: none;
     border-radius: 6px;
     font-weight: 500;
@@ -39,5 +51,9 @@
 @media screen and (max-width: 568px) {
     .movies__cards {
         gap: 34px;
+    }
+
+    .movies__button {
+        width: 240px;
     }
 }
