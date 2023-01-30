@@ -7,7 +7,7 @@ import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
 
 function App() {
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
 
     return (
         <div className="page">

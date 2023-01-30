@@ -41,6 +41,14 @@
     padding: 80px 70px 10px;
 }
 
+.section__block_type_movies {
+    display: flex;
+    flex-direction: column;
+    row-gap: 50px;
+    align-items: center;
+    padding: 70px 70px 80px;
+}
+
 .link {
     text-decoration: none;
     transition: opacity 0.3s linear;
@@ -62,6 +70,9 @@
         padding: 60px 30px 10px;
     }
 
+    .section__block_type_movies {
+        padding: 70px 30px 80px;
+    }
 }
 
 @media screen and (max-width: 568px) {
@@ -83,6 +94,10 @@
 
     .section__block_type_search {
         padding: 60px 10px 10px;
+    }
+
+    .section__block_type_movies {
+        padding: 40px 10px 80px;
     }
 
     .section__title {
