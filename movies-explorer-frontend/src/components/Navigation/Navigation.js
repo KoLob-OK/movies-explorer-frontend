@@ -65,7 +65,7 @@ const Navigation = () => {
                         </li>
                         <li className='navigation__list-item'>
                             <button className='navigation__button-profile' onClick={navigateProfile}>
-                                <span className='navigation__link navigation__link_type_profile'
+                                <span className='link navigation__link-profile'
                                       onClick={navigateProfile}>Аккаунт</span>
                                 <div className='navigation__logo-profile' />
                             </button>

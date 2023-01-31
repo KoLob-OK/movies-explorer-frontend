@@ -55,7 +55,6 @@
 }
 
 .navigation__link {
-    text-decoration: none;
     font-weight: 400;
     font-size: 13px;
     line-height: 18px;
@@ -86,10 +85,12 @@
     margin: 0 0 0 30px;
 }
 
-.navigation__link_type_profile {
+.navigation__link-profile {
     font-weight: 500;
     font-size: 14px;
     line-height: 16px;
+    color: #FFF;
+    cursor: pointer;
 }
 
 .navigation__logo-profile {
@@ -236,6 +237,10 @@
         text-decoration-thickness: 2px;
         text-underline-offset: 8px;
     }
+
+    .navigation__button-profile {
+        margin: 0;
+    }
 }
 
 @media (max-width: 568px) {
@@ -250,9 +255,5 @@
 
     .navigation__list {
         gap: 24px;
-    }
-
-    .navigation__button-profile {
-        margin: 0;
     }
 }
