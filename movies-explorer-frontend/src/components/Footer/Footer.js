@@ -23,8 +23,8 @@ const Footer = () => {
                     Created by KolobOK
                 </p>
                 <ul className='footer__links'>
-                    {links.map((link) => (
-                        <li>
+                    {links.map((link, index) => (
+                        <li key={index}>
                             <a className='link footer__link' href={link.ref} target='_blank'>{link.title}</a>
                         </li>
                     ))}

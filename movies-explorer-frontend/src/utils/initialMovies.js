@@ -12,7 +12,7 @@ export const movies = [
         name: "33 слова о дизайне",
         image: pic1,
         duration: "1ч42м",
-        isLiked: true
+        isLiked: false
     },
     {
         name: "Киноальманах «100 лет дизайна»",
@@ -66,7 +66,7 @@ export const movies = [
         name: "Киноальманах «100 лет дизайна»",
         image: pic2,
         duration: "1ч42м",
-        isLiked: true
+        isLiked: false
     },
     {
         name: "В погоне за Бенкси",
@@ -78,7 +78,7 @@ export const movies = [
         name: "Баския: Взрыв реальности",
         image: pic4,
         duration: "1ч42м",
-        isLiked: true
+        isLiked: false
     },
     {
         name: "Бег это свобода",
@@ -90,7 +90,7 @@ export const movies = [
         name: "Книготорговцы",
         image: pic6,
         duration: "1ч42м",
-        isLiked: true
+        isLiked: false
     },
     {
         name: "Когда я думаю о Германии ночью",
@@ -102,6 +102,6 @@ export const movies = [
         name: "Gimme Danger: История Игги и The Stooges Gimme Danger: История Игги и The Stooges Gimme Danger: История Игги и The Stooges",
         image: pic8,
         duration: "1ч42м",
-        isLiked: true
+        isLiked: false
     },
 ]

@@ -20,8 +20,8 @@ const Portfolio = () => {
         <section className='section__block section__block_type_portfolio'>
             <h3 className='portfolio__title'>Портфолио</h3>
             <ul className='portfolio__projects'>
-                {projects.map((project) => (
-                    <li className='portfolio__project'>
+                {projects.map((project, index) => (
+                    <li key={index} className='portfolio__project'>
                         <a className='link portfolio__link'
                            href={project.ref}
                            target='_blank'>

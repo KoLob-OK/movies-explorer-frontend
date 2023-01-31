@@ -28,8 +28,8 @@
     font-size: 13px;
     line-height: 16px;
     color: #FFF;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    /*text-overflow: ellipsis;*/ /* многоточие в конце длинной строки. В макете 2 строки */
+    /*white-space: nowrap;*/  /* применяется для многоточия для сброса переноса строки */
     overflow: hidden;
     margin: 0;
     padding: 0;
@@ -64,6 +64,23 @@
 
 .card__like_active {
     background-image: url('../../images/save-card-active.svg');
+}
+
+.card__del-button {
+    background-image: url('../../images/del-card.svg');
+    background-repeat: no-repeat;
+    background-size: 10px;
+    background-position: center 55%;
+    background-color: #313131;
+    width: 24px;
+    height: 24px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    right: 0;
 }
 
 @media screen and (max-width: 984px) {

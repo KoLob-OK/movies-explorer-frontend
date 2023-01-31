@@ -1,22 +1,40 @@
-import { useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import {useState} from "react";
+import {Route, Routes} from "react-router-dom";
 
 import './App.css';
 
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
+import SavedMovies from '../SavedMovies/SavedMovies';
 
 function App() {
     const [isLoading, setIsLoading] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(true);
+    const [isSaved, setIsSaved] = useState(false);
+
+    function handleClickSave() {
+        setIsSaved((state) => !state);
+    }
 
     return (
         <div className="page">
             <Routes>
                 <Route path="/" element={
-                    <Main/>
+                    <Main isLoggedIn={isLoggedIn}/>
                 }/>
                 <Route path="/movies" element={
-                    <Movies isLoading={isLoading}/>
+                    <Movies
+                        isLoading={isLoading}
+                        isLoggedIn={isLoggedIn}
+                        onMovieSave={handleClickSave}
+                    />
+                }/>
+                <Route path="/saved-movies" element={
+                    <SavedMovies
+                        isLoading={isLoading}
+                        isLoggedIn={isLoggedIn}
+
+                    />
                 }/>
             </Routes>
         </div>

@@ -5,42 +5,27 @@
     align-items: center;
 }
 
-.header__left-menu {
-    display: flex;
-    align-items: center;
-    gap: 44px;
-}
-
 .header__logo {
     width: 38px;
     height: 38px;
     cursor: pointer;
+    transition: all .3s ease-in;
 }
 
-.header__films-navigation {
-    font-size: 13px;
-    line-height: 18px;
-    display: flex;
-    justify-content: space-between;
-    gap: 16px;
+.header__logo:hover {
+    transform: scale(1.2);
+    opacity: .6;
 }
 
-.header__films {
-    font-style: normal;
-    font-weight: 500;
-    color: #FFF;
-}
-
-.header__films_saved {
-    font-style: normal;
-    font-weight: 400;
-    color: #FFF;
+.header__logo:active {
+    transform: scale(0.8);
 }
 
 .header__right-menu {
     display: flex;
     align-items: center;
     gap: 30px;
+    /*display: none;*/
 }
 
 .header__link {
@@ -64,48 +49,6 @@
     cursor: pointer;
     box-sizing: border-box;
     transition: transform .3s linear, opacity .3s linear;
-    /*display: none;*/
-}
-
-.header__button-profile {
-    display: flex;
-    align-items: center;
-    gap: 13px;
-    padding: 0;
-    border: none;
-    font: inherit;
-    color: inherit;
-    cursor: pointer;
-    background-color: #202020;
-    transition: opacity .3s linear;
-    display: none;
-}
-
-.header__button-text {
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 16px;
-    color: #FFF;
-}
-
-.header__button-logo-container {
-    width: 30px;
-    height: 30px;
-    background-color: #313131;
-    border: none;
-    border-radius: 6px;
-    padding: 0;
-    box-sizing: border-box;
-    transition: opacity .3s linear;
-    cursor: pointer;
-}
-
-.header__logo-profile {
-    width: 10px;
-    height: 10px;
-    border: none;
-    padding: 10px;
-    align-self: center;
 }
 
 .header__button-login:hover {
@@ -113,18 +56,9 @@
     opacity: .6;
 }
 
-.header__button-profile:hover {
-    transform: scale(1.1);
-    opacity: .6;
-}
-
 @media screen and (max-width: 984px) {
     .header {
         padding: 18px 30px;
-    }
-
-    .header__films-navigation {
-        display: none;
     }
 }
 

@@ -13,8 +13,8 @@ const Techs = () => {
         На курсе веб-разработки мы освоили технологии, которые применили в дипломном проекте.
       </p>
             <ul className='techs__items'>
-                {techs.map((tech) => (
-                    <li className="techs__item">{tech}</li>
+                {techs.map((tech, index) => (
+                    <li key={index} className="techs__item">{tech}</li>
                 ))}
             </ul>
         </section>

@@ -5,7 +5,7 @@ import './Promo.css';
 import Header from '../Header/Header';
 import promoImage from '../../images/promo-logo.svg';
 
-const Promo = () => {
+const Promo = ({isLoggedIn}) => {
     const link = {
         title: "О проекте",
         ref: "#about-project"
@@ -13,7 +13,7 @@ const Promo = () => {
 
     return (
         <section className='promo' id='promo'>
-            <Header/>
+            <Header isLoginPanelVisible={!isLoggedIn} />
             <div className='promo__container'>
                 <div className='promo__text-container'>
                     <h1 className='promo__title'>
