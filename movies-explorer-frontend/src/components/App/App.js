@@ -6,6 +6,7 @@ import './App.css';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
+import Profile from '../Profile/Profile';
 
 function App() {
     const [isLoading, setIsLoading] = useState(false);
@@ -33,7 +34,11 @@ function App() {
                     <SavedMovies
                         isLoading={isLoading}
                         isLoggedIn={isLoggedIn}
-
+                    />
+                }/>
+                <Route path="/profile" element={
+                    <Profile
+                        isLoggedIn={isLoggedIn}
                     />
                 }/>
             </Routes>

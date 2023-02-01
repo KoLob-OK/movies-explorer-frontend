@@ -45,6 +45,14 @@
     padding: 70px 70px 80px;
 }
 
+.section__block_type_profile {
+    padding: 74px 0 70px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
 .link {
     text-decoration: none;
     transition: opacity 0.3s linear;
@@ -68,6 +76,10 @@
 
     .section__block_type_movies {
         padding: 70px 30px 80px;
+    }
+
+    .section__block_type_profile {
+        padding: 236px 0 269px;
     }
 }
 
@@ -94,6 +106,11 @@
 
     .section__block_type_movies {
         padding: 40px 10px 80px;
+    }
+
+    .section__block_type_profile {
+        padding: 70px 10px 40px;
+        height: 100vh;
     }
 
     .section__title {
