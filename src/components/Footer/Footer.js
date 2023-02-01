@@ -25,7 +25,10 @@ const Footer = () => {
                 <ul className='footer__links'>
                     {links.map((link, index) => (
                         <li key={index}>
-                            <a className='link footer__link' href={link.ref} target='_blank'>{link.title}</a>
+                            <a className='link footer__link'
+                               href={link.ref}
+                               target='_blank'
+                               rel='noreferrer'>{link.title}</a>
                         </li>
                     ))}
                 </ul>

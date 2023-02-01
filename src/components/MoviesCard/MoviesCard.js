@@ -11,10 +11,10 @@ const MoviesCard = ({ movie, isSavedMoviesPage, onMovieSave, onMovieDelete }) =>
     const cardDeleteButtonClassName = 'card__del-button';
 
     useEffect(() => {
-        const mouseOverListener = cardRef.current?.addEventListener('mouseover', () => {
+        const mouseOverListener = cardRef.current.addEventListener('mouseover', () => {
             setIsMouseInCard(true)
         });
-        const mouseLeaveListener = cardRef.current?.addEventListener('mouseleave', () => {
+        const mouseLeaveListener = cardRef.current.addEventListener('mouseleave', () => {
             setIsMouseInCard(false)
         });
 
@@ -22,7 +22,7 @@ const MoviesCard = ({ movie, isSavedMoviesPage, onMovieSave, onMovieDelete }) =>
             cardRef.current?.removeEventListener('mouseover', mouseOverListener)
             cardRef.current?.removeEventListener('mouseleave', mouseLeaveListener)
         }
-    }, [cardRef.current]);
+    }, [cardRef]);
 
     // Обработчик клика кнопки сохранения
     function handleSaveClick() {

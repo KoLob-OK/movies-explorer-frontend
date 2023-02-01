@@ -24,16 +24,16 @@ const Portfolio = () => {
                     <li key={index} className='portfolio__project'>
                         <a className='link portfolio__link'
                            href={project.ref}
-                           target='_blank'>
+                           target='_blank'
+                           rel='noreferrer'>
                             {project.title}
                             {/*если нужен клик по всей строке*/}
                             {/*<span className='portfolio__link-icon'>↗</span>*/}
                         </a>
                         <a className='link portfolio__link-icon'
                            href={project.ref}
-                           target='_blank'>
-                            ↗
-                        </a>
+                           target='_blank'
+                           rel='noreferrer'>↗</a>
                     </li>
                 ))}
             </ul>
