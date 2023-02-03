@@ -32,13 +32,16 @@
     text-align: center;
     color: #FFFFFF;
     padding: 11px 0 9px;
-    transition: transform .3s linear, opacity .3s linear;
+    transition: all .3s linear;
     cursor: pointer;
 }
 
 .movies__button:hover {
-    transform: scale(1.1);
     opacity: .6;
+}
+
+.movies__button:active {
+    transform: scale(0.8);
 }
 
 @media screen and (max-width: 984px) {

@@ -8,6 +8,11 @@
     background-position: center;
     width: 100%;
     min-height: 151px;
+    transition: all .2s ease-in-out;
+}
+
+.card__image:active {
+    transform: scale(0.9);
 }
 
 .card__wrapper {

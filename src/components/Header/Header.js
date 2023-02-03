@@ -1,8 +1,9 @@
 import React from 'react';
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 import './Header.css';
 
-import headerLogo from '../../images/header-logo.svg';
+import headerLogo from '../../images/logo.svg';
 
 
 const Header = ({isLoginPanelVisible, children}) => {
@@ -22,7 +23,7 @@ const Header = ({isLoginPanelVisible, children}) => {
             {children}
             {isLoginPanelVisible && (
                 <nav className='header__right-menu'>
-                    <a href='/signup' className='link header__link'>Регистрация</a>
+                    <a href='/sign-up' className='link header__link'>Регистрация</a>
                     <button className='header__button-login'>Войти</button>
                 </nav>
             )}        </header>
