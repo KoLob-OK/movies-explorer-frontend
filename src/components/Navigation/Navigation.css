@@ -118,12 +118,6 @@
     transform: scale(0.8);
 }
 
-@media (min-width: 985px) {
-    .navigation {
-        width: 100%;
-    }
-}
-
 @media (max-width: 984px) {
     .navigation__open-button {
         display: block;

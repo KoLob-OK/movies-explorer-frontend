@@ -1,15 +1,14 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 
 import './MoviesCardList.css';
 
 import MoviesCard from '../MoviesCard/MoviesCard';
 
-import {movies} from '../../utils/initialMovies';
-import {useLocation} from "react-router-dom";
+import { movies } from '../../utils/initialMovies';
 
-function MoviesCardList({ onMovieSave, onMovieDelete }) {
+const MoviesCardList = ({ onMovieSave, onMovieDelete }) => {
     const location = useLocation();
-
 
     return (
         <section className='section__block section__block_type_movies'>

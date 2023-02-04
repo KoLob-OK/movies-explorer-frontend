@@ -9,10 +9,11 @@ import SavedMovies from '../SavedMovies/SavedMovies';
 import Profile from '../Profile/Profile';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
+import Page404 from '../Page404/Page404';
 
 function App() {
     const [isLoading, setIsLoading] = useState(false);
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(true);
     const [isSaved, setIsSaved] = useState(false);
 
     function handleClickSave() {
@@ -54,6 +55,10 @@ function App() {
                     <Profile
                         isLoggedIn={isLoggedIn}
                     />
+                }/>
+
+                <Route path="*" element={
+                    <Page404 />
                 }/>
 
             </Routes>
