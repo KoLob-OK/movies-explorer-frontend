@@ -61,6 +61,14 @@
     justify-content: space-between;
 }
 
+.section__block_type_login {
+    padding: 70px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
 .link {
     text-decoration: none;
     transition: opacity 0.3s linear;
@@ -91,6 +99,10 @@
     }
 
     .section__block_type_register {
+        padding-top: 232px;
+    }
+
+    .section__block_type_login {
         padding-top: 232px;
     }
 }
@@ -126,6 +138,10 @@
     }
 
     .section__block_type_register {
+        padding: 56px 30px 30px;
+    }
+
+    .section__block_type_login {
         padding: 56px 30px 30px;
     }
 

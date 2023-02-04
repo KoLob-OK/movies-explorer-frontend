@@ -8,10 +8,11 @@ import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import Profile from '../Profile/Profile';
 import Register from '../Register/Register';
+import Login from '../Login/Login';
 
 function App() {
     const [isLoading, setIsLoading] = useState(false);
-    const [isLoggedIn, setIsLoggedIn] = useState(true);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isSaved, setIsSaved] = useState(false);
 
     function handleClickSave() {
@@ -23,9 +24,11 @@ function App() {
             <Routes>
 
                 <Route path="/sign-up" element={
-                    <Register
-                        isLoggedIn={isLoggedIn}
-                    />
+                    <Register />
+                }/>
+
+                <Route path="/sign-in" element={
+                    <Login />
                 }/>
 
                 <Route path="/" element={

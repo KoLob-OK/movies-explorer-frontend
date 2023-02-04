@@ -32,6 +32,7 @@ const Register = () => {
                             name='name'
                             placeholder='Имя'
                             value='Константин'
+                            // onChange={}
                             required
                         />
                         <span className='register__input-error' id='name-error'>
@@ -44,6 +45,7 @@ const Register = () => {
                                name='email'
                                placeholder='Email'
                                value='myemail@yandex.ru'
+                            // onChange={}
                                required
                         />
                         <span className='register__input-error' id='email-error'>
@@ -56,6 +58,7 @@ const Register = () => {
                                name='password'
                                placeholder='Пароль'
                                value='password'
+                            // onChange={}
                                required
                         />
                         <span className='register__input-error' id='password-error'>Password Error Message</span>

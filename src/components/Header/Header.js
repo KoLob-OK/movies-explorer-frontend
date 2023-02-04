@@ -8,8 +8,15 @@ import headerLogo from '../../images/logo.svg';
 
 const Header = ({isLoginPanelVisible, children}) => {
     const navigate = useNavigate();
+
     const navigateHome = () => {
         navigate('/');
+    }
+    const navigateRegister = () => {
+        navigate('/sign-up');
+    }
+    const navigateLogin = () => {
+        navigate('/sign-in');
     }
 
     return (
@@ -23,8 +30,14 @@ const Header = ({isLoginPanelVisible, children}) => {
             {children}
             {isLoginPanelVisible && (
                 <nav className='header__right-menu'>
-                    <a href='/sign-up' className='link header__link'>Регистрация</a>
-                    <button className='header__button-login'>Войти</button>
+                    <span className='link header__link'
+                          onClick={navigateRegister}>
+                        Регистрация
+                    </span>
+                    <button className='header__button-login'
+                            onClick={navigateLogin}>
+                        Войти
+                    </button>
                 </nav>
             )}        </header>
     )
