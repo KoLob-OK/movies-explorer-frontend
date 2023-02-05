@@ -1,4 +1,5 @@
 import React from 'react';
+import { HashLink as Link } from 'react-router-hash-link';
 
 import './Promo.css';
 
@@ -6,14 +7,10 @@ import Header from '../Header/Header';
 import promoImage from '../../images/promo-logo.svg';
 
 const Promo = ({isLoggedIn}) => {
-    const link = {
-        title: "О проекте",
-        ref: "#about-project"
-    };
 
     return (
         <section className='promo' id='promo'>
-            <Header isLoginPanelVisible={!isLoggedIn} />
+            <Header isLoginPanelVisible={!isLoggedIn}/>
             <div className='promo__container'>
                 <div className='promo__text-container'>
                     <h1 className='promo__title'>
@@ -24,10 +21,7 @@ const Promo = ({isLoggedIn}) => {
                     </h2>
                 </div>
                 <img className='promo__image' src={promoImage} alt='Глобус, сверстанный из слова web'/>
-                <button className="promo__button-more" onClick={() => {
-                    document.location = link.ref
-                }}>Узнать больше
-                </button>
+                <Link className='promo__button-more' to={{pathname: '/', hash: '#about-project'}}>Узнать больше</Link>
             </div>
         </section>
     )

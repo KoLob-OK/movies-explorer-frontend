@@ -19,8 +19,8 @@ const MoviesCard = ({ movie, isSavedMoviesPage, onMovieSave, onMovieDelete }) =>
         });
 
         return () => {
-            cardRef.current?.removeEventListener('mouseover', mouseOverListener)
-            cardRef.current?.removeEventListener('mouseleave', mouseLeaveListener)
+            cardRef.current.removeEventListener('mouseover', mouseOverListener)
+            cardRef.current.removeEventListener('mouseleave', mouseLeaveListener)
         }
     }, [cardRef]);
 

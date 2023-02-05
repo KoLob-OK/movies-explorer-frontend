@@ -28,7 +28,7 @@ const Footer = () => {
                             <a className='link footer__link'
                                href={link.ref}
                                target='_blank'
-                               rel='noreferrer'>{link.title}</a>
+                               rel='noopener noreferrer'>{link.title}</a>
                         </li>
                     ))}
                 </ul>

@@ -28,7 +28,7 @@ const AboutMe = () => {
                     <a className='link about-me__link'
                        href={activity.ref}
                        target='_blank'
-                       rel='noreferrer'>{activity.title}</a>
+                       rel='noopener noreferrer'>{activity.title}</a>
                 </div>
                 <img className='about-me__photo' src={photo} alt='Фото студента' />
             </div>

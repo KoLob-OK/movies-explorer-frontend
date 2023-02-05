@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import React, { useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
 
 import './App.css';
 
@@ -21,22 +21,22 @@ function App() {
     }
 
     return (
-        <div className="page">
+        <div className='page'>
             <Routes>
 
-                <Route path="/sign-up" element={
+                <Route path='/sign-up' element={
                     <Register />
                 }/>
 
-                <Route path="/sign-in" element={
+                <Route path='/sign-in' element={
                     <Login />
                 }/>
 
-                <Route path="/" element={
+                <Route path='/' element={
                     <Main isLoggedIn={isLoggedIn}/>
                 }/>
 
-                <Route path="/movies" element={
+                <Route path='/movies' element={
                     <Movies
                         isLoading={isLoading}
                         isLoggedIn={isLoggedIn}
@@ -44,20 +44,20 @@ function App() {
                     />
                 }/>
 
-                <Route path="/saved-movies" element={
+                <Route path='/saved-movies' element={
                     <SavedMovies
                         isLoading={isLoading}
                         isLoggedIn={isLoggedIn}
                     />
                 }/>
 
-                <Route path="/profile" element={
+                <Route path='/profile' element={
                     <Profile
                         isLoggedIn={isLoggedIn}
                     />
                 }/>
 
-                <Route path="*" element={
+                <Route path='*' element={
                     <Page404 />
                 }/>
 

@@ -1,3 +1,5 @@
+import React from 'react';
+
 import './Portfolio.css';
 
 const Portfolio = () => {
@@ -25,7 +27,7 @@ const Portfolio = () => {
                         <a className='link portfolio__link'
                            href={project.ref}
                            target='_blank'
-                           rel='noreferrer'>
+                           rel='noopener noreferrer'>
                             {project.title}
                             {/*если нужен клик по всей строке*/}
                             {/*<span className='portfolio__link-icon'>↗</span>*/}
@@ -33,7 +35,7 @@ const Portfolio = () => {
                         <a className='link portfolio__link-icon'
                            href={project.ref}
                            target='_blank'
-                           rel='noreferrer'>↗</a>
+                           rel='noopener noreferrer'>↗</a>
                     </li>
                 ))}
             </ul>
