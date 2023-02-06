@@ -84,7 +84,7 @@
 }
 
 .link:hover {
-    opacity: .6;
+    opacity: .7;
 }
 
 @media screen and (max-width: 984px) {
@@ -152,6 +152,7 @@
 
     .section__block_type_register {
         padding: 56px 30px 30px;
+
     }
 
     .section__block_type_login {

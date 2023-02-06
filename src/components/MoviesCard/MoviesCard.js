@@ -2,36 +2,43 @@ import React, {useEffect, useRef, useState} from 'react';
 
 import './MoviesCard.css';
 
-const MoviesCard = ({ movie, isSavedMoviesPage, onMovieSave, onMovieDelete }) => {
+const MoviesCard = ({ movie, isSavedMoviesPage, onSaveMovie, onDeleteMovie }) => {
     const [isMouseInCard, setIsMouseInCard] = useState(false);
     const cardRef = useRef();
     // Создаём переменную, которую после зададим в `className` для кнопки сохранения
     const cardSaveButtonClassName = (`card__like ${movie.isLiked ? 'card__like_active' : ''}`);
     // Создаём переменную, которую после зададим в `className` для кнопки удаления
-    const cardDeleteButtonClassName = 'card__del-button';
+    const cardDeleteButtonClassName = 'link card__del-button';
 
+    // Создаем эффект добавления/удаления слушателя наведения мыши на карточку
     useEffect(() => {
-        const mouseOverListener = cardRef.current.addEventListener('mouseover', () => {
-            setIsMouseInCard(true)
-        });
-        const mouseLeaveListener = cardRef.current.addEventListener('mouseleave', () => {
-            setIsMouseInCard(false)
-        });
+        const card = cardRef.current;
+        let mouseOverListener, mouseLeaveListener;
+        if(card){
+            mouseOverListener = card.addEventListener('mouseover', () => {
+                setIsMouseInCard(true)
+            });
+            mouseLeaveListener = card.addEventListener('mouseleave', () => {
+                setIsMouseInCard(false)
+            });
+        }
 
         return () => {
-            cardRef.current.removeEventListener('mouseover', mouseOverListener)
-            cardRef.current.removeEventListener('mouseleave', mouseLeaveListener)
+            if(card) {
+                card.removeEventListener('mouseover', mouseOverListener)
+                card.removeEventListener('mouseleave', mouseLeaveListener)
+            }
         }
-    }, [cardRef]);
+    }, [cardRef.current]);
 
     // Обработчик клика кнопки сохранения
     function handleSaveClick() {
-        onMovieSave(movie);
+        onSaveMovie(movie);
     }
 
     // Обработчик клика кнопки удаления
     function handleDeleteClick() {
-        onMovieDelete(movie);
+        onDeleteMovie(movie);
     }
 
     return (

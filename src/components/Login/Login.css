@@ -24,7 +24,6 @@
 
 .login__logo:hover {
     transform: scale(1.2);
-    opacity: .6;
 }
 
 .login__logo:active {
@@ -70,6 +69,7 @@
 
 .login__input:focus {
     outline: 0;
+    border-bottom: 1px solid #4285F4;
 }
 
 .login__input:last-of-type {
@@ -109,11 +109,20 @@
     transition: all .3s ease-in;
 }
 
-.login__button:active {
-    transform: scale(0.9);
-    opacity: .6;
+.login__button:hover {
+    opacity: .8;
 }
 
+.login__button:active {
+    transform: scale(0.9);
+}
+
+.login__button:disabled {
+    background: #F8F8F8;
+    cursor: not-allowed;
+    color: #C2C2C2;
+    opacity: 1;
+}
 
 .login__link-text {
     color: #8B8B8B;
@@ -134,6 +143,7 @@
 @media screen and (max-width: 568px) {
     .login__container {
         width: 100%;
+        min-height: 100vh;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -174,4 +184,12 @@
         font-size: 12px;
         line-height: 15px;
     }
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+    transition: background-color 600000s 0s, color 600000s 0s;
+}
+input[data-autocompleted] {
+    background-color: transparent !important;
 }

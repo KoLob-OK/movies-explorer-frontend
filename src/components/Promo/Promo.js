@@ -5,12 +5,15 @@ import './Promo.css';
 
 import Header from '../Header/Header';
 import promoImage from '../../images/promo-logo.svg';
+import Navigation from "../Navigation/Navigation";
 
-const Promo = ({isLoggedIn}) => {
+const Promo = ({ isLoggedIn }) => {
 
     return (
         <section className='promo' id='promo'>
-            <Header isLoginPanelVisible={!isLoggedIn}/>
+            <Header isLoginPanelVisible={!isLoggedIn}>
+                <Navigation isMenuVisible={isLoggedIn}/>
+            </Header>
             <div className='promo__container'>
                 <div className='promo__text-container'>
                     <h1 className='promo__title'>

@@ -7,7 +7,7 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 
 import { movies } from '../../utils/initialMovies';
 
-const MoviesCardList = ({ onMovieSave, onMovieDelete }) => {
+const MoviesCardList = ({ onSaveMovie, onDeleteMovie }) => {
     const location = useLocation();
 
     return (
@@ -19,8 +19,8 @@ const MoviesCardList = ({ onMovieSave, onMovieDelete }) => {
                             key={index}
                             movie={movie}
                             isSavedMoviesPage={location.pathname === '/saved-movies'}
-                            onMovieSave={onMovieSave}
-                            onMovieDelete={onMovieDelete}
+                            onSaveMovie={onSaveMovie}
+                            onDeleteMovie={onDeleteMovie}
                         />
                     ))}
                 </ul>

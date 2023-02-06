@@ -65,6 +65,15 @@
     position: absolute;
     top: 0;
     right: 0;
+    transition: all .3s ease-in;
+}
+
+.card__like:hover {
+    opacity: .8;
+}
+
+.card__like:active {
+    transform: scale(0.8);
 }
 
 .card__like_active {
@@ -86,6 +95,11 @@
     position: absolute;
     top: 0;
     right: 0;
+    transition: all .3s ease-in;
+}
+
+.card__del-button:active {
+    transform: scale(0.8);
 }
 
 @media screen and (max-width: 984px) {

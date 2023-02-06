@@ -1,21 +1,15 @@
 import React from 'react';
-import {useNavigate} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 
 import './Navigation.css';
 
-const Navigation = () => {
-    const navigate = useNavigate();
-    const navigateHome = () => {
-        navigate('/');
-    }
-    const navigateFilms = () => {
-        navigate('/movies');
-    }
-    const navigateSavedFilms = () => {
-        navigate('/saved-movies');
-    }
-    const navigateProfile = () => {
-        navigate('/profile');
+const Navigation = ({isMenuVisible}) => {
+    const location = useLocation();
+    const navigateLinks = {
+        home: '/',
+        films: '/movies',
+        savedFilms: '/saved-movies',
+        profile: '/profile',
     }
 
     const [isOpen, setIsOpen] = React.useState(false);
@@ -25,7 +19,7 @@ const Navigation = () => {
     }
 
     return (
-        <div className='navigation'>
+        isMenuVisible && (<div className='navigation'>
             <button
                 type='button'
                 className='navigation__open-button'
@@ -46,35 +40,34 @@ const Navigation = () => {
 
                     <ul className='navigation__list'>
                         <li className='navigation__list-item'>
-                            <span className='navigation__link' onClick={navigateHome}>
+                            <Link
+                                className={`link navigation__link ${location.pathname === navigateLinks.home ? 'navigation__link_active' : ''}`}
+                                to={navigateLinks.home}>
                                 Главная
-                            </span>
+                            </Link>
                         </li>
                         <li className='navigation__list-item'>
-                            <span
-                                className='navigation__link navigation__link_active'
-                                onClick={navigateFilms}
-                            >
+                            <Link
+                                className={`link navigation__link ${location.pathname === navigateLinks.films ? 'navigation__link_active' : ''}`}
+                                to={navigateLinks.films}>
                                 Фильмы
-                            </span>
+                            </Link>
                         </li>
                         <li className='navigation__list-item'>
-                            <span className='navigation__link' onClick={navigateSavedFilms}>
+                            <Link
+                                className={`link navigation__link ${location.pathname === navigateLinks.savedFilms ? 'navigation__link_active' : ''}`}
+                                to={navigateLinks.savedFilms}>
                                 Сохранённые фильмы
-                            </span>
-                        </li>
-                        <li className='navigation__list-item'>
-                            <button className='navigation__button-profile' onClick={navigateProfile}>
-                                <span className='link navigation__link-profile'
-                                      onClick={navigateProfile}>Аккаунт</span>
-                                <div className='navigation__logo-profile' />
-                            </button>
-
+                            </Link>
                         </li>
                     </ul>
+                    <Link className='navigation__button-profile' to={navigateLinks.profile}>
+                        <span className='link navigation__link-profile'>Аккаунт</span>
+                        <div className='navigation__logo-profile'/>
+                    </Link>
                 </nav>
             </div>
-        </div>
+        </div>)
     );
 }
 

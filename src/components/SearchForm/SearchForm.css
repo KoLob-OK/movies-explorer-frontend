@@ -28,6 +28,8 @@
 
 .search__input:focus {
     outline: 0;
+    border: 1px solid #4285F4;
+    border-radius: 50px;
 }
 
 .search__wrapper {
@@ -43,6 +45,11 @@
     box-sizing: border-box;
 }
 
+/*.search__wrapper:focus-within {*/
+/*    outline: 0;*/
+/*    border: 1px solid #FFF;*/
+/*}*/
+
 .search__button {
     width: 59px;
     font-weight: 500;
@@ -57,6 +64,15 @@
     border: none;
     border-radius: 48px;
     cursor: pointer;
+    transition: all .3s ease;
+}
+
+.search__button:hover {
+    opacity: .8;
+}
+
+.search__button:active {
+    transform: scale(0.8);
 }
 
 @media screen and (max-width: 984px) {

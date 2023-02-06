@@ -1,5 +1,6 @@
 .navigation {
     color: #FFF;
+    width: 100%;
 }
 
 .navigation__open-button {
@@ -32,25 +33,25 @@
     background-color: transparent;
     max-width: none;
     display: flex;
+    align-items: center;
+    gap: 50px;
     padding: 0;
 }
 
 .navigation__list {
+    width: 100%;
     list-style: none;
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
     flex-direction: row;
     gap: 20px;
+    padding: 0;
+    margin: 0;
 }
 
 .navigation__list-item:first-child {
     display: none;
-}
-
-.navigation__list-item:last-child {
-    margin-top: 0;
-    margin-left: 0;
 }
 
 .navigation__link {
@@ -59,11 +60,6 @@
     line-height: 18px;
     color: #FFF;
     cursor: pointer;
-    transition: opacity .3s linear;
-}
-
-.navigation__link:hover {
-    opacity: .6;
 }
 
 .navigation__link_active {
@@ -71,17 +67,16 @@
 }
 
 .navigation__button-profile {
-    position: relative;
-    box-sizing: border-box;
     border: none;
     width: 100px;
     height: 30px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 13px;
     background: none;
     padding: 0;
-    margin: 0 0 0 30px;
+    margin: 0;
 }
 
 .navigation__link-profile {
@@ -95,23 +90,22 @@
 .navigation__logo-profile {
     background-image: url('../../images/profile-logo.svg');
     background-repeat: no-repeat;
-    background-size: 10px;
+    background-size: 11px;
     background-position: center;
     background-color: #313131;
     width: 30px;
     height: 30px;
+    box-sizing: border-box;
     border: none;
     border-radius: 6px;
     cursor: pointer;
     padding: 0;
-    position: absolute;
-    top: 0;
-    right: 0;
+    margin: 0;
     transition: all .3s linear;
 }
 
 .navigation__logo-profile:hover {
-    opacity: .6;
+    opacity: .7;
 }
 
 .navigation__logo-profile:active {
@@ -119,16 +113,22 @@
 }
 
 @media (max-width: 984px) {
+    .navigation {
+        margin-left: 0;
+    }
+
     .navigation__open-button {
         display: block;
         background-color: transparent;
         border: none;
         width: 44px;
-        padding: 10px 8px;
+        height: 44px;
+        padding: 0;
+        margin: 0 0 0 auto;
         background-image: url(../../images/burger-menu.svg);
         background-position: center;
         background-repeat: no-repeat;
-        background-size: contain;
+        background-size: 28px;
         transition: all .3s linear;
         cursor: pointer;
     }
@@ -159,7 +159,8 @@
         height: 100%;
         max-width: 520px;
         padding: 159px 90px 92px;
-        justify-content: center;
+        flex-direction: column;
+        justify-content: space-between;
         position: fixed;
         top: 0;
         right: 0;
@@ -202,7 +203,7 @@
         margin: 0;
         padding: 0;
         flex-direction: column;
-        justify-content: center;
+        justify-content: flex-start;
         align-items: center;
         gap: 28px;
         height: 100%;
@@ -210,10 +211,6 @@
 
     .navigation__list-item:first-child {
         display: block;
-    }
-
-    .navigation__list-item:last-child {
-        margin-top: auto;
     }
 
     .navigation__link {
@@ -240,6 +237,12 @@
     .navigation__close-button {
         top: 16px;
         right: 16px;
+    }
+
+    .navigation__open-button {
+        width: 40px;
+        height: 43px;
+        background-size: 22px;
     }
 
     .navigation__panel {

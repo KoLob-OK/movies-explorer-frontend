@@ -40,7 +40,7 @@ function App() {
                     <Movies
                         isLoading={isLoading}
                         isLoggedIn={isLoggedIn}
-                        onMovieSave={handleClickSave}
+                        onSaveMovie={handleClickSave}
                     />
                 }/>
 

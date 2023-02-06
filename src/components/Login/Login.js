@@ -1,22 +1,35 @@
 import React from 'react';
-import {Link, useNavigate} from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import './Login.css';
-
+import useForm from '../../hooks/useForm';
 import logo from '../../images/logo.svg';
 
-const Login = () => {
+const Login = ({ onLogin }) => {
     const navigate = useNavigate();
     const navigateHome = () => {
         navigate('/');
     }
+    const {enteredValues, errors, handleChange, isFormValid} = useForm({});
+
+    const handleSubmit = (e) => {
+        // Запрещаем браузеру переходить по адресу формы
+        e.preventDefault();
+        // Проверяем, есть ли обязательные данные
+        if (!enteredValues.email || !enteredValues.password) {
+            // если нет данных, то возвращаем
+            return;
+        }
+        // если есть данные, то передаём значения управляемых компонентов во внешний обработчик
+        onLogin(enteredValues);
+    };
 
     return (
         <section className='section__block section__block_type_login'>
             <div className='login__container'>
                 <div className='login__wrapper'>
                     <div className='login__header'>
-                        <img className='login__logo'
+                        <img className='link login__logo'
                              src={logo}
                              alt='Логотип в форме кольца'
                              onClick={navigateHome}
@@ -24,42 +37,45 @@ const Login = () => {
                     </div>
                     <h1 className='login__title'>Рады видеть!</h1>
 
-                    <form className='form login__form'>
-
+                    <form className='form login__form'
+                          onSubmit={handleSubmit}
+                          noValidate>
                         <label className='login__label' htmlFor='email'>E-mail</label>
                         <input className='login__input'
                                type='email'
                                name='email'
+                               id='email'
                                placeholder='Email'
-                               value='myemail@yandex.ru'
-                               // onChange={}
+                               value={enteredValues.email || ''}
+                               onChange={handleChange}
                                required
                         />
-                        <span className='login__input-error' id='email-error'>
-                    Email Error Message
-                </span>
+                        <span className='login__input-error' id='email-error'>{errors.email}</span>
 
                         <label className='login__label' htmlFor='password'>Пароль</label>
                         <input className='login__input'
                                type='password'
                                name='password'
+                               id='password'
                                placeholder='Пароль'
-                               value='password'
-                               // onChange={}
+                               value={enteredValues.password || ''}
+                               onChange={handleChange}
                                required
                         />
-                        <span className='login__input-error' id='password-error'>Password Error Message</span>
+                        <span className='login__input-error' id='password-error'>{errors.password}</span>
                     </form>
                 </div>
 
 
                 <div className='login__bottom'>
                     <button className='login__button'
-                            type='submit'>Войти
+                            type='submit'
+                            disabled={!isFormValid}>
+                        Войти
                     </button>
                     <p className='login__link-text'>
                         Ещё не зарегистрированы?
-                        <Link className='login__link' to='/sign-in'>
+                        <Link className='link login__link' to='/sign-in'>
                             Регистрация
                         </Link>
                     </p>

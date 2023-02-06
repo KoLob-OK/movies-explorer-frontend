@@ -5,7 +5,6 @@ import './Header.css';
 
 import headerLogo from '../../images/logo.svg';
 
-
 const Header = ({isLoginPanelVisible, children}) => {
     const navigate = useNavigate();
 

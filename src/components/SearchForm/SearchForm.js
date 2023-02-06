@@ -9,9 +9,9 @@ const SearchForm = () => {
         <section className='section__block section__block_type_search'>
             <div className='search__container'>
                 <div className='search__field'>
-                    <div className='search__wrapper'>
+                    <form className='form search__wrapper'>
                         <input className='search__input' type='text' placeholder='Фильм'/>
-                    </div>
+                    </form>
                     <button className='search__button'>Найти</button>
                 </div>
                 <FilterCheckbox />

@@ -9,15 +9,15 @@ import Preloader from '../Preloader/Preloader';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Footer from '../Footer/Footer';
 
-const Movies = ({ isLoading, isLoggedIn, onMovieSave }) => {
+const Movies = ({ isLoading, isLoggedIn, onSaveMovie }) => {
 
     return (
         <main className='main'>
             <Header isLoginPanelVisible={!isLoggedIn}>
-                <Navigation/>
+                <Navigation isMenuVisible={isLoggedIn}/>
             </Header>
             <SearchForm />
-            {isLoading ? <Preloader/> : <MoviesCardList onMovieSave={onMovieSave}/>}
+            {isLoading ? <Preloader/> : <MoviesCardList onSaveMovie={onSaveMovie}/>}
             <Footer />
         </main>
     );
