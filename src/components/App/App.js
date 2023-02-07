@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {createContext, useEffect, useState} from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import './App.css';
@@ -10,6 +10,9 @@ import Profile from '../Profile/Profile';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
 import Page404 from '../Page404/Page404';
+import { UserContextProvider } from '../../context/UserContext';
+
+
 
 function App() {
     const [isLoading, setIsLoading] = useState(false);
@@ -21,48 +24,58 @@ function App() {
     }
 
     return (
-        <div className='page'>
-            <Routes>
+        <UserContextProvider setIsLoading={setIsLoading}>
+            <div className='page'>
+                <Routes>
 
-                <Route path='/sign-up' element={
-                    <Register />
-                }/>
+                    <Route path='/sign-up' element={
+                        <Register />
+                    }/>
 
-                <Route path='/sign-in' element={
-                    <Login />
-                }/>
+                    <Route path='/sign-in' element={
+                        <Login />
+                    }/>
 
-                <Route path='/' element={
-                    <Main isLoggedIn={isLoggedIn}/>
-                }/>
+                    <Route path='/' element={
+                        <Main isLoggedIn={isLoggedIn}/>
+                    }/>
 
-                <Route path='/movies' element={
-                    <Movies
-                        isLoading={isLoading}
-                        isLoggedIn={isLoggedIn}
-                        onSaveMovie={handleClickSave}
-                    />
-                }/>
+                    <Route path='/movies' element={
+                        <Movies
+                            isLoading={isLoading}
+                            isLoggedIn={isLoggedIn}
+                            onSaveMovie={handleClickSave}
+                        />
+                    }/>
 
-                <Route path='/saved-movies' element={
-                    <SavedMovies
-                        isLoading={isLoading}
-                        isLoggedIn={isLoggedIn}
-                    />
-                }/>
+                    <Route path='/saved-movies' element={
+                        <SavedMovies
+                            isLoading={isLoading}
+                            isLoggedIn={isLoggedIn}
+                        />
+                    }/>
 
-                <Route path='/profile' element={
-                    <Profile
-                        isLoggedIn={isLoggedIn}
-                    />
-                }/>
+                    <Route path='/profile' element={
+                        <Profile
+                            isLoggedIn={isLoggedIn}
+                            onUpdateUser={(name,email)=>{
+                                if(name.length >=10) {
+                                    return {name};
+                                } else {
+                                    throw new Error();
+                                }
+                            }
+                            }
+                        />
+                    }/>
 
-                <Route path='*' element={
-                    <Page404 />
-                }/>
+                    <Route path='*' element={
+                        <Page404 />
+                    }/>
 
-            </Routes>
-        </div>
+                </Routes>
+            </div>
+        </UserContextProvider>
     );
 }
 

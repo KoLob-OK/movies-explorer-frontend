@@ -1,10 +1,11 @@
 import React from 'react';
-import {Link, useLocation} from "react-router-dom";
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import './Navigation.css';
 
 const Navigation = ({isMenuVisible}) => {
     const location = useLocation();
+    const navigate = useNavigate();
     const navigateLinks = {
         home: '/',
         films: '/movies',
@@ -61,10 +62,10 @@ const Navigation = ({isMenuVisible}) => {
                             </Link>
                         </li>
                     </ul>
-                    <Link className='navigation__button-profile' to={navigateLinks.profile}>
+                    <button className='navigation__button-profile' onClick={() => navigate(navigateLinks.profile)}>
                         <span className='link navigation__link-profile'>Аккаунт</span>
                         <div className='navigation__logo-profile'/>
-                    </Link>
+                    </button>
                 </nav>
             </div>
         </div>)
