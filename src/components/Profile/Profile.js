@@ -5,10 +5,12 @@ import './Profile.css';
 import Header from '../Header/Header';
 import Navigation from '../Navigation/Navigation';
 import useForm from '../../hooks/useForm';
-import { UserContext } from '../../context/UserContext';
+import {UserContext} from '../../context/UserContext';
 
-const Profile = ({ isLoggedIn, onUpdateUser }) => {
+const Profile = ({ isLoggedIn, onUpdateUser, onSignOut }) => {
+    // Подписка на контекст
     const user = useContext(UserContext);
+
     const [welcomeName, setWelcomeName] = useState(user.name)
     const [isEditMode, setIsEditMode] = useState(false);
     const [error, setError] = useState('');
@@ -18,18 +20,19 @@ const Profile = ({ isLoggedIn, onUpdateUser }) => {
         e.preventDefault();
 
         try {
-           const user = await onUpdateUser(enteredValues.name, enteredValues.email);
-           if(user) {
-               setWelcomeName(user.name);
-           }
-        } catch(e) {
+            const user = await onUpdateUser(enteredValues.name, enteredValues.email);
+            console.log(user);
+            if (user) {
+                setWelcomeName(user.name);
+            }
+        } catch (e) {
             setError('Упс');
         }
     }
 
     const FormError = () => {
-        return Object.keys(errors).map(key => {
-            return errors[key] ? <span className='profile__error' id='profile__error'>
+        return Object.keys(errors).map((key, index) => {
+            return errors[key] ? <span key={index} className='profile__error' id='profile__error'>
                         {`${key}: ${errors[key]}`}
                     </span> : <></>
         })
@@ -38,12 +41,14 @@ const Profile = ({ isLoggedIn, onUpdateUser }) => {
     return (
         <main className='main'>
             <Header isLoginPanelVisible={!isLoggedIn}>
-                <Navigation/>
+                <Navigation isMenuVisible={isLoggedIn}/>
             </Header>
             <section className='section__block section__block_type_profile'>
                 <div className='profile__container'>
-                    <h1 className='profile__title'>{`Привет, ${welcomeName}!`}</h1>
-                    <form className='form profile___form'>
+                    <h1 className='profile__title'>{`Привет, ${welcomeName || 'Пользователь'}!`}</h1>
+                    <form className='form profile___form'
+                          onSubmit={handleSubmit}
+                          noValidate>
                         <div className='profile__field'>
                             <label className='profile__label'>Имя</label>
                             <input className='profile__input'
@@ -53,6 +58,7 @@ const Profile = ({ isLoggedIn, onUpdateUser }) => {
                                    placeholder='Имя'
                                    minLength='2'
                                    maxLength='40'
+                                   value={enteredValues.name || ''}
                                    onChange={handleChange}
                                    required
                                    disabled={!isEditMode}
@@ -65,6 +71,7 @@ const Profile = ({ isLoggedIn, onUpdateUser }) => {
                                    name='email'
                                    id='email'
                                    placeholder='Почта'
+                                   value={enteredValues.email || ''}
                                    onChange={handleChange}
                                    required
                                    disabled={!isEditMode}
@@ -73,12 +80,19 @@ const Profile = ({ isLoggedIn, onUpdateUser }) => {
                     </form>
                 </div>
                 {!isEditMode && (<div className='profile__bottom'>
-                    <button className='profile__submit'
-                    onClick={() => {setIsEditMode(true)}}>Редактировать</button>
-                    <button className='profile__logout'>Выйти из аккаунта</button>
+                    <button className='link profile__submit'
+                            onClick={() => {
+                                setIsEditMode(true)
+                            }}>Редактировать
+                    </button>
+                    <button className='link profile__logout'
+                            onClick={onSignOut}
+                    >
+                        Выйти из аккаунта
+                    </button>
                 </div>)}
                 {isEditMode && (<div className='profile__bottom'>
-                    <FormError />
+                    <FormError/>
                     {error && <span className='profile__error' id='profile__error'>
                         {error}
                     </span>}

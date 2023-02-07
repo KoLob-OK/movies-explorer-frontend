@@ -1,5 +1,5 @@
-import React, {createContext, useEffect, useState} from 'react';
-import { Route, Routes } from 'react-router-dom';
+import React, {useState} from 'react';
+import {Route, Routes, useNavigate} from 'react-router-dom';
 
 import './App.css';
 
@@ -10,17 +10,25 @@ import Profile from '../Profile/Profile';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
 import Page404 from '../Page404/Page404';
-import { UserContextProvider } from '../../context/UserContext';
-
+import {UserContextProvider} from '../../context/UserContext';
 
 
 function App() {
+    // Задаем переменную состояния аутентификации
     const [isLoading, setIsLoading] = useState(false);
+    // Логин
     const [isLoggedIn, setIsLoggedIn] = useState(true);
     const [isSaved, setIsSaved] = useState(false);
 
+    const navigate = useNavigate();
+
     function handleClickSave() {
         setIsSaved((state) => !state);
+    }
+
+    function onSignOut() {
+        setIsLoggedIn(false);
+        navigate('/sign-in');
     }
 
     return (
@@ -29,11 +37,11 @@ function App() {
                 <Routes>
 
                     <Route path='/sign-up' element={
-                        <Register />
+                        <Register/>
                     }/>
 
                     <Route path='/sign-in' element={
-                        <Login />
+                        <Login/>
                     }/>
 
                     <Route path='/' element={
@@ -58,19 +66,13 @@ function App() {
                     <Route path='/profile' element={
                         <Profile
                             isLoggedIn={isLoggedIn}
-                            onUpdateUser={(name,email)=>{
-                                if(name.length >=10) {
-                                    return {name};
-                                } else {
-                                    throw new Error();
-                                }
-                            }
-                            }
+                            onUpdateUser={(name, email) => {return {name, email}}}
+                            onSignOut={onSignOut}
                         />
                     }/>
 
                     <Route path='*' element={
-                        <Page404 />
+                        <Page404/>
                     }/>
 
                 </Routes>

@@ -80,6 +80,11 @@
     background: none;
     color: #FFF;
     cursor: pointer;
+    transition: all .3s ease-in-out;
+}
+
+.profile__submit:active {
+    transform: scale(0.8);
 }
 
 .profile__logout {
@@ -88,6 +93,11 @@
     cursor: pointer;
     font-weight: 500;
     color: #EE3465;
+    transition: all .3s ease-in-out;
+}
+
+.profile__logout:active {
+   transform: scale(0.8);
 }
 
 .profile__error {

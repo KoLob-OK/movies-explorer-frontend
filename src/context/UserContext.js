@@ -1,5 +1,5 @@
 import React, {createContext, useEffect, useState} from "react";
-export const UserContext = createContext({name: 'Василий'});
+export const UserContext = createContext({});
 
 export const UserContextProvider = ({setIsLoading, children}) => {
     const [user, setUser] = useState({});
@@ -15,7 +15,7 @@ export const UserContextProvider = ({setIsLoading, children}) => {
     });
 
     return (
-        <UserContext.Provider value={{name: "Василий"}}>
+        <UserContext.Provider value={user}>
             {children}
         </UserContext.Provider>
     )
