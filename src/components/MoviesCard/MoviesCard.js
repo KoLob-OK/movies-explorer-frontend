@@ -4,11 +4,16 @@ import './MoviesCard.css';
 
 const MoviesCard = ({ movie, isSavedMoviesPage, onSaveMovie, onDeleteMovie }) => {
     const [isMouseInCard, setIsMouseInCard] = useState(false);
+    // Создаем переменную ширины экрана устройства
+    const [width, setWidth] = useState(window.innerWidth);
+    // Задаем границу ширины мобильного устройства
+    const isMobile = width <= 568;
     const cardRef = useRef();
     // Создаём переменную, которую после зададим в `className` для кнопки сохранения
     const cardSaveButtonClassName = (`card__like ${movie.isLiked ? 'card__like_active' : ''}`);
     // Создаём переменную, которую после зададим в `className` для кнопки удаления
     const cardDeleteButtonClassName = 'link card__del-button';
+
 
     // Создаем эффект добавления/удаления слушателя наведения мыши на карточку
     useEffect(() => {
@@ -30,6 +35,16 @@ const MoviesCard = ({ movie, isSavedMoviesPage, onSaveMovie, onDeleteMovie }) =>
             }
         }
     }, [cardRef.current]);
+
+    function handleWindowSizeChange() {
+        setWidth(window.innerWidth);
+    }
+    useEffect(() => {
+        window.addEventListener('resize', handleWindowSizeChange);
+        return () => {
+            window.removeEventListener('resize', handleWindowSizeChange);
+        }
+    }, []);
 
     // Обработчик клика кнопки сохранения
     function handleSaveClick() {
@@ -53,7 +68,14 @@ const MoviesCard = ({ movie, isSavedMoviesPage, onSaveMovie, onDeleteMovie }) =>
                             onClick={handleSaveClick}
                     />
                 }
-                {isMouseInCard && isSavedMoviesPage &&
+                {isMouseInCard && isSavedMoviesPage && !isMobile && !isMobile &&
+                    <button className={cardDeleteButtonClassName}
+                            type='button'
+                            aria-label='Удалить'
+                            onClick={handleDeleteClick}
+                    />
+                }
+                {isMobile && isSavedMoviesPage &&
                     <button className={cardDeleteButtonClassName}
                             type='button'
                             aria-label='Удалить'

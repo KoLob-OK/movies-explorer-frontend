@@ -123,4 +123,8 @@
         font-size: 10px;
         line-height: 12px;
     }
+
+    .card__del-button {
+        visibility: visible;
+    }
 }
