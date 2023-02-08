@@ -10,7 +10,11 @@ const SearchForm = () => {
             <div className='search__container'>
                 <div className='search__field'>
                     <form className='form search__wrapper'>
-                        <input className='search__input' type='text' placeholder='Фильм'/>
+                        <input className='search__input'
+                               type='text'
+                               placeholder='Фильм'
+                               required
+                        />
                     </form>
                     <button className='search__button'>Найти</button>
                 </div>

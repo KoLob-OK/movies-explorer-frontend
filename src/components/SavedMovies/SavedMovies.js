@@ -11,14 +11,16 @@ import Navigation from "../Navigation/Navigation";
 
 const SavedMovies = ({ isLoading, isLoggedIn, onDeleteMovie }) => {
     return (
-        <main className='main'>
+        <>
             <Header isLoginPanelVisible={!isLoggedIn}>
                 <Navigation isMenuVisible={isLoggedIn}/>
             </Header>
-            <SearchForm />
-            {isLoading ? <Preloader/> : <MoviesCardList onDeleteMovie={onDeleteMovie}/>}
-            <Footer />
-        </main>
+            <main className='main'>
+                <SearchForm/>
+                {isLoading ? <Preloader/> : <MoviesCardList onDeleteMovie={onDeleteMovie}/>}
+            </main>
+            <Footer/>
+        </>
     );
 }
 

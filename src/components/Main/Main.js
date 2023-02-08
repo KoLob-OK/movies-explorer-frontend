@@ -8,18 +8,23 @@ import Techs from '../Techs/Techs';
 import AboutMe from '../AboutMe/AboutMe';
 import Portfolio from '../Portfolio/Portfolio';
 import Footer from '../Footer/Footer';
+import Header from "../Header/Header";
+import Navigation from "../Navigation/Navigation";
 
-const Main = ({isLoggedIn}) => {
+const Main = ({ isLoggedIn }) => {
     return (
         <>
+            <Header isLoginPanelVisible={!isLoggedIn}>
+                <Navigation isMenuVisible={isLoggedIn}/>
+            </Header>
             <main className='main'>
                 <Promo isLoggedIn={isLoggedIn} />
                 <AboutProject />
                 <Techs />
                 <AboutMe />
                 <Portfolio />
-                <Footer />
             </main>
+            <Footer />
         </>
     )
 };

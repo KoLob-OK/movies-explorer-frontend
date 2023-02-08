@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import './MoviesCard.css';
 
@@ -7,7 +7,7 @@ const MoviesCard = ({ movie, isSavedMoviesPage, onSaveMovie, onDeleteMovie }) =>
     // Создаем переменную ширины экрана устройства
     const [width, setWidth] = useState(window.innerWidth);
     // Задаем границу ширины мобильного устройства
-    const isMobile = width <= 568;
+    const isMobile = width < 768;
     const cardRef = useRef();
     // Создаём переменную, которую после зададим в `className` для кнопки сохранения
     const cardSaveButtonClassName = (`card__like ${movie.isLiked ? 'card__like_active' : ''}`);

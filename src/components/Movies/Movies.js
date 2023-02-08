@@ -12,14 +12,16 @@ import Footer from '../Footer/Footer';
 const Movies = ({ isLoading, isLoggedIn, onSaveMovie }) => {
 
     return (
-        <main className='main'>
+        <>
             <Header isLoginPanelVisible={!isLoggedIn}>
                 <Navigation isMenuVisible={isLoggedIn}/>
             </Header>
-            <SearchForm />
-            {isLoading ? <Preloader/> : <MoviesCardList onSaveMovie={onSaveMovie}/>}
-            <Footer />
-        </main>
+            <main className='main'>
+                <SearchForm/>
+                {isLoading ? <Preloader/> : <MoviesCardList onSaveMovie={onSaveMovie}/>}
+            </main>
+            <Footer/>
+        </>
     );
 }
 

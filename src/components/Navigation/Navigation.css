@@ -112,7 +112,7 @@
     transform: scale(0.8);
 }
 
-@media (max-width: 984px) {
+@media screen and (max-width: 768px) {
     .navigation {
         margin-left: 0;
     }
@@ -233,7 +233,7 @@
     }
 }
 
-@media (max-width: 568px) {
+@media screen and (max-width: 468px) {
     .navigation__close-button {
         top: 16px;
         right: 16px;

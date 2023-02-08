@@ -1,8 +1,11 @@
 .header {
-    padding: 18px 70px;
+    height: 74px;
+    padding: 0 70px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background: none;
+    z-index: 1;
 }
 
 .header__logo {
@@ -59,14 +62,13 @@
 
 @media screen and (max-width: 984px) {
     .header {
-        padding: 18px 30px;
+        padding: 0 30px;
     }
 }
 
-
 @media screen and (max-width: 568px) {
     .header {
-        padding: 18px 14px;
+        padding: 0 14px;
     }
 
     .header__button-login {

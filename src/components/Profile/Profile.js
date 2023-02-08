@@ -39,73 +39,75 @@ const Profile = ({ isLoggedIn, onUpdateUser, onSignOut }) => {
     }
 
     return (
-        <main className='main'>
+        <>
             <Header isLoginPanelVisible={!isLoggedIn}>
                 <Navigation isMenuVisible={isLoggedIn}/>
             </Header>
-            <section className='section__block section__block_type_profile'>
-                <div className='profile__container'>
-                    <h1 className='profile__title'>{`Привет, ${welcomeName || 'Пользователь'}!`}</h1>
-                    <form className='form profile___form'
-                          onSubmit={handleSubmit}
-                          noValidate>
-                        <div className='profile__field'>
-                            <label className='profile__label'>Имя</label>
-                            <input className='profile__input'
-                                   type='text'
-                                   name='name'
-                                   id='name'
-                                   placeholder='Имя'
-                                   minLength='2'
-                                   maxLength='40'
-                                   value={enteredValues.name || ''}
-                                   onChange={handleChange}
-                                   required
-                                   disabled={!isEditMode}
-                            />
-                        </div>
-                        <div className='profile__field'>
-                            <label className='profile__label'>E-mail</label>
-                            <input className='profile__input'
-                                   type='email'
-                                   name='email'
-                                   id='email'
-                                   placeholder='Почта'
-                                   value={enteredValues.email || ''}
-                                   onChange={handleChange}
-                                   required
-                                   disabled={!isEditMode}
-                            />
-                        </div>
-                    </form>
-                </div>
-                {!isEditMode && (<div className='profile__bottom'>
-                    <button className='link profile__submit'
-                            onClick={() => {
-                                setIsEditMode(true)
-                            }}>Редактировать
-                    </button>
-                    <button className='link profile__logout'
-                            onClick={onSignOut}
-                    >
-                        Выйти из аккаунта
-                    </button>
-                </div>)}
-                {isEditMode && (<div className='profile__bottom'>
-                    <FormError/>
-                    {error && <span className='profile__error' id='profile__error'>
+            <main className='main'>
+                <section className='section__block section__block_type_profile'>
+                    <div className='profile__container'>
+                        <h1 className='profile__title'>{`Привет, ${welcomeName || 'Пользователь'}!`}</h1>
+                        <form className='form profile___form'
+                              onSubmit={handleSubmit}
+                              noValidate>
+                            <div className='profile__field'>
+                                <label className='profile__label'>Имя</label>
+                                <input className='profile__input'
+                                       type='text'
+                                       name='name'
+                                       id='name'
+                                       placeholder='Имя'
+                                       minLength='2'
+                                       maxLength='40'
+                                       value={enteredValues.name || ''}
+                                       onChange={handleChange}
+                                       required
+                                       disabled={!isEditMode}
+                                />
+                            </div>
+                            <div className='profile__field'>
+                                <label className='profile__label'>E-mail</label>
+                                <input className='profile__input'
+                                       type='email'
+                                       name='email'
+                                       id='email'
+                                       placeholder='Почта'
+                                       value={enteredValues.email || ''}
+                                       onChange={handleChange}
+                                       required
+                                       disabled={!isEditMode}
+                                />
+                            </div>
+                        </form>
+                    </div>
+                    {!isEditMode && (<div className='profile__bottom'>
+                        <button className='link profile__submit'
+                                onClick={() => {
+                                    setIsEditMode(true)
+                                }}>Редактировать
+                        </button>
+                        <button className='link profile__logout'
+                                onClick={onSignOut}
+                        >
+                            Выйти из аккаунта
+                        </button>
+                    </div>)}
+                    {isEditMode && (<div className='profile__bottom'>
+                        <FormError/>
+                        {error && <span className='profile__error' id='profile__error'>
                         {error}
                     </span>}
-                    <button className='profile__button'
-                            type='submit'
-                            onClick={handleSubmit}
-                            disabled={!isFormValid}
-                    >
-                        Сохранить
-                    </button>
-                </div>)}
-            </section>
-        </main>
+                        <button className='profile__button'
+                                type='submit'
+                                onClick={handleSubmit}
+                                disabled={!isFormValid}
+                        >
+                            Сохранить
+                        </button>
+                    </div>)}
+                </section>
+            </main>
+        </>
     );
 }
 
