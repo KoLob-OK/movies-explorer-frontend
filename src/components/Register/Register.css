@@ -169,7 +169,6 @@
         width: 100%;
         display: flex;
         flex-direction: column;
-        margin-bottom: 65px;
     }
 
     .register__button {

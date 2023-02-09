@@ -9,12 +9,6 @@
     position: relative;
 }
 
-.search__field {
-    position: relative;
-    width: 100%;
-    margin: 0;
-}
-
 .search__input {
     width: calc(100% - 73px);
     height: 100%;
@@ -38,6 +32,10 @@
     height: 48px;
     border-radius: 50px;
     background: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
     font-weight: 400;
     font-size: 14px;
     line-height: 18px;
@@ -56,10 +54,8 @@
     font-size: 11px;
     line-height: 18px;
     color: #FFF;
+    margin-right: 7px;
     padding: 8px 10px;
-    position: absolute;
-    right: 7px;
-    top: 7px;
     background-color: #4285F4;
     border: none;
     border-radius: 48px;
