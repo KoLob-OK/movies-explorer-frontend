@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import './Register.css';
 import useForm from '../../hooks/useForm';
+import { regExEmail } from '../../utils/constants';
 import logo from '../../images/logo.svg';
 
 const Register = ({ onRegister }) => {
@@ -71,6 +72,7 @@ const Register = ({ onRegister }) => {
                                    value={enteredValues.email || ''}
                                    onChange={handleChange}
                                    autoComplete='off'
+                                   pattern={regExEmail}
                                    required
                             />
                             <span className='register__input-error' id='email-error'>{errors.email}</span>

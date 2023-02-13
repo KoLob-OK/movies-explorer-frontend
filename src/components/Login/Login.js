@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import './Login.css';
 import useForm from '../../hooks/useForm';
+import { regExEmail } from '../../utils/constants';
 import logo from '../../images/logo.svg';
 
 const Login = ({ onLogin }) => {
@@ -49,6 +50,7 @@ const Login = ({ onLogin }) => {
                                    placeholder='Email'
                                    value={enteredValues.email || ''}
                                    onChange={handleChange}
+                                   pattern={regExEmail}
                                    required
                             />
                             <span className='login__input-error' id='email-error'>{errors.email}</span>
