@@ -11,7 +11,7 @@ import Footer from '../Footer/Footer';
 import InfoTooltip from '../InfoTooltip/InfoTooltip';
 
 const Movies = ({ isLoading, isLoggedIn, onSaveMovie }) => {
-    const [isPopupOpen, setIsPopupOpen] = useState(true);
+    const [isPopupOpen, setIsPopupOpen] = useState(false);
     function closePopup() {
         setIsPopupOpen(false);
     }

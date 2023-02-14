@@ -5,13 +5,13 @@ import './Profile.css';
 import Header from '../Header/Header';
 import Navigation from '../Navigation/Navigation';
 import useForm from '../../hooks/useForm';
-import {UserContext} from '../../context/UserContext';
+import { CurrentUserContext } from '../../context/CurrentUserContext';
 
 const Profile = ({ isLoggedIn, onUpdateUser, onSignOut }) => {
     // Подписка на контекст
-    const user = useContext(UserContext);
+    const currentUser = useContext(CurrentUserContext);
 
-    const [welcomeName, setWelcomeName] = useState(user.name)
+    const [welcomeName, setWelcomeName] = useState(currentUser.name)
     const [isEditMode, setIsEditMode] = useState(false);
     const [error, setError] = useState('');
     const {enteredValues, errors, handleChange, isFormValid} = useForm({});

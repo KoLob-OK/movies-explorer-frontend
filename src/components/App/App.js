@@ -10,7 +10,7 @@ import Profile from '../Profile/Profile';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
 import Page404 from '../Page404/Page404';
-import {UserContextProvider} from '../../context/UserContext';
+import { CurrentUserContextProvider } from '../../context/CurrentUserContext';
 
 
 function App() {
@@ -32,7 +32,7 @@ function App() {
     }
 
     return (
-        <UserContextProvider setIsLoading={setIsLoading}>
+        <CurrentUserContextProvider setIsLoading={setIsLoading}>
             <div className='page'>
                 <Routes>
 
@@ -77,7 +77,7 @@ function App() {
 
                 </Routes>
             </div>
-        </UserContextProvider>
+        </CurrentUserContextProvider>
     );
 }
 
