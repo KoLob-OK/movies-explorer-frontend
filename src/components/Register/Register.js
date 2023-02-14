@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import './Register.css';
 import useForm from '../../hooks/useForm';
-import { regExEmail } from '../../utils/constants';
+import { regExEmail, regExPassword } from '../../utils/constants';
 import logo from '../../images/logo.svg';
 
 const Register = ({ onRegister }) => {
@@ -16,7 +16,7 @@ const Register = ({ onRegister }) => {
     useEffect(() => {
         resetForm();
         console.log('поля формы сброшены');
-    }, []);
+    }, [resetForm]);
 
     const handleSubmit = (e) => {
         // Запрещаем браузеру переходить по адресу формы
@@ -68,7 +68,7 @@ const Register = ({ onRegister }) => {
                                    type='email'
                                    name='email'
                                    id='email'
-                                   placeholder='Email'
+                                   placeholder='Введите Email'
                                    value={enteredValues.email || ''}
                                    onChange={handleChange}
                                    autoComplete='off'
@@ -77,7 +77,10 @@ const Register = ({ onRegister }) => {
                             />
                             <span className='register__input-error' id='email-error'>{errors.email}</span>
 
-                            <label className='register__label' htmlFor='password'>Пароль</label>
+                            <label className='register__label' htmlFor='password'>
+                                Пароль (должен содержать минимум 6 символов, не менее 1 заглавной буквы, 1 строчной
+                                буквы, 1 цифры и 1 специального символа)
+                            </label>
                             <input className='register__input'
                                    type='password'
                                    name='password'
@@ -87,6 +90,7 @@ const Register = ({ onRegister }) => {
                                    onChange={handleChange}
                                    minLength={6}
                                    autoComplete='off'
+                                   pattern={regExPassword}
                                    required
                             />
                             <span className='register__input-error' id='password-error'>{errors.password}</span>

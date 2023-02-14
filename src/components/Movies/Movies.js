@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import './Movies.css';
 
@@ -8,9 +8,13 @@ import SearchForm from '../SearchForm/SearchForm';
 import Preloader from '../Preloader/Preloader';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Footer from '../Footer/Footer';
+import InfoTooltip from '../InfoTooltip/InfoTooltip';
 
 const Movies = ({ isLoading, isLoggedIn, onSaveMovie }) => {
-
+    const [isPopupOpen, setIsPopupOpen] = useState(true);
+    function closePopup() {
+        setIsPopupOpen(false);
+    }
     return (
         <>
             <Header isLoginPanelVisible={!isLoggedIn}>
@@ -20,6 +24,9 @@ const Movies = ({ isLoading, isLoggedIn, onSaveMovie }) => {
                 <SearchForm/>
                 {isLoading ? <Preloader/> : <MoviesCardList onSaveMovie={onSaveMovie}/>}
             </main>
+            <InfoTooltip isOpen={isPopupOpen}
+                         onClose={closePopup}
+            />
             <Footer/>
         </>
     );
