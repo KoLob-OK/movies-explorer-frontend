@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import './MoviesCard.css';
 
+import { convertTime } from '../../utils/utils';
+
 const MoviesCard = ({ movie, isSavedMoviesPage, onSaveMovie, onDeleteMovie }) => {
     const [isMouseInCard, setIsMouseInCard] = useState(false);
     // Создаем переменную ширины экрана устройства
@@ -89,7 +91,7 @@ const MoviesCard = ({ movie, isSavedMoviesPage, onSaveMovie, onDeleteMovie }) =>
                     />
                 }
             </div>
-            <p className='card__duration'>{movie.duration}</p>
+            <p className='card__duration'>{convertTime(movie.duration)}</p>
         </li>
     );
 }
