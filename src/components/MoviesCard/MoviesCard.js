@@ -58,7 +58,13 @@ const MoviesCard = ({ movie, isSavedMoviesPage, onSaveMovie, onDeleteMovie }) =>
 
     return (
         <li className='card' ref={cardRef}>
+            <a
+                href={movie.trailerLink}
+                className="link card__link"
+                target="_blank"
+                rel="noreferrer">
             <img className='card__image' src={movie.image} alt={movie.nameRU}/>
+            </a>
             <div className='card__wrapper'>
                 <h3 className='card__name'>{movie.nameRU}</h3>
                 {!isSavedMoviesPage &&
