@@ -1,4 +1,4 @@
-class MovieApi {
+class MoviesApi {
     constructor(movieUrl) {
         // movieUrl - url-адрес запроса фильмов
         this._movieUrl = movieUrl;
@@ -17,7 +17,7 @@ class MovieApi {
     // получает начальные карточки фильмов с сервера и
     // возвращает промис {Promise} - массив карточек
     getMovies() {
-        return fetch(this._movieUrl, {
+        return fetch(`${this._movieUrl}/beatfilm-movies`, {
             method: 'GET',
         })
             .then(res => {
@@ -27,12 +27,12 @@ class MovieApi {
 }
 
 /*++++++++++++++++++++API+++++++++++++++++++++++*/
-const movieApi = new MovieApi({
-    movieUrl: 'https://api.nomoreparties.co/beatfilm-movies',
+const moviesApi = new MoviesApi({
+    movieUrl: 'https://api.nomoreparties.co',
     headers: {
         'Content-Type': 'application/json',
         // 'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
     }
 });
 
-export default movieApi;
+export default moviesApi;
