@@ -58,9 +58,9 @@ const MoviesCard = ({ movie, isSavedMoviesPage, onSaveMovie, onDeleteMovie }) =>
 
     return (
         <li className='card' ref={cardRef}>
-            <img className='card__image' src={movie.image} alt={movie.name}/>
+            <img className='card__image' src={movie.image} alt={movie.nameRU}/>
             <div className='card__wrapper'>
-                <h3 className='card__name'>{movie.name}</h3>
+                <h3 className='card__name'>{movie.nameRU}</h3>
                 {!isSavedMoviesPage &&
                     <button className={cardSaveButtonClassName}
                             type='button'

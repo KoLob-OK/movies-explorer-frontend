@@ -7,7 +7,7 @@
     object-fit: cover;
     background-position: center;
     width: 100%;
-    min-height: 151px;
+    height: 151px;
     transition: all .2s ease-in-out;
 }
 
@@ -104,13 +104,13 @@
 
 @media screen and (max-width: 984px) {
     .card__image {
-        max-height: 190px;
+        height: 190px;
     }
 }
 
 @media screen and (max-width: 568px) {
     .card__image {
-        min-height: 168px;
+        height: 168px;
     }
 
     .card__name {

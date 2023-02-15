@@ -44,7 +44,10 @@ const regExPassword = '^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[-#!$@%^&*_+~=:;?\\/
    (?=.*[A-Z])                 - минимум одна буква в верхнем регистре
    (?=.*[-#!$@%^&*_+~=:;?])    - минимум один символ из набора */
 
+const MOVIES_BASE_URL = 'https://api.nomoreparties.co';
+
 export {
     regExEmail,
     regExPassword,
+    MOVIES_BASE_URL,
 };

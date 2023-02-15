@@ -64,6 +64,10 @@
     transform: scale(0.8);
 }
 
+.popup__massage {
+    text-align: center;
+}
+
 @media screen and (max-width: 568px) {
     .popup__container {
         width: calc(100% - 2*20px);

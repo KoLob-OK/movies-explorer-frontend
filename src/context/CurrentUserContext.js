@@ -13,7 +13,7 @@ export const CurrentUserContextProvider = ({ setIsLoading, children }) => {
             }
         });
         setIsLoading(false)
-    });
+    }, []);
 
     return (
         <CurrentUserContext.Provider value={currentUser}>

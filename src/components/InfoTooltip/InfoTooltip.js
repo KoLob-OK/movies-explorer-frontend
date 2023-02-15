@@ -2,7 +2,7 @@ import React from 'react';
 
 import './InfoTooltip.css';
 
-const InfoTooltip = ({ isOpen, onClose, message='Здесь будет сообщение для пользователя' }) => {
+const InfoTooltip = ({ isOpen, onClose, message }) => {
     function closePopupByOverlayClick(e) {
         if (e.target === e.currentTarget) onClose(e);
     }
@@ -17,7 +17,7 @@ const InfoTooltip = ({ isOpen, onClose, message='Здесь будет сооб�
                             aria-label='Закрыть окно'
                             onClick={onClose}
                     />
-                    <span>{JSON.stringify(message)}</span>
+                    <span className='popup__massage'>{message}</span>
                 </div>
             </div>
         </div>

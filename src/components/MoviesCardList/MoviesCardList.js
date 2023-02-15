@@ -5,18 +5,16 @@ import './MoviesCardList.css';
 
 import MoviesCard from '../MoviesCard/MoviesCard';
 
-import { movies } from '../../utils/initialMovies';
-
-const MoviesCardList = ({ onSaveMovie, onDeleteMovie }) => {
+const MoviesCardList = ({ movies, onSaveMovie, onDeleteMovie }) => {
     const location = useLocation();
 
     return (
         <section className='section__block section__block_type_movies'>
             <div className='movies__container'>
                 <ul className='movies__cards'>
-                    {movies.map((movie, index) => (
+                    {movies.map((movie) => (
                         <MoviesCard
-                            key={index}
+                            key={movie.movieId}
                             movie={movie}
                             isSavedMoviesPage={location.pathname === '/saved-movies'}
                             onSaveMovie={onSaveMovie}

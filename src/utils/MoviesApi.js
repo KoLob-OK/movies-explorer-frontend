@@ -1,7 +1,9 @@
+import { MOVIES_BASE_URL } from './constants';
+
 class MoviesApi {
-    constructor(movieUrl) {
+    constructor(options) {
         // movieUrl - url-адрес запроса фильмов
-        this._movieUrl = movieUrl;
+        this._movieUrl = options.movieUrl;
     }
 
     // Метод проверки статуса ответа
@@ -28,7 +30,7 @@ class MoviesApi {
 
 /*++++++++++++++++++++API+++++++++++++++++++++++*/
 const moviesApi = new MoviesApi({
-    movieUrl: 'https://api.nomoreparties.co',
+    movieUrl: MOVIES_BASE_URL,
     headers: {
         'Content-Type': 'application/json',
         // 'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
