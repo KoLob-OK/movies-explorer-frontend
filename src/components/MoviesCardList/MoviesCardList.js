@@ -5,7 +5,7 @@ import './MoviesCardList.css';
 
 import MoviesCard from '../MoviesCard/MoviesCard';
 
-const MoviesCardList = ({ movies, onSaveMovie, onDeleteMovie }) => {
+const MoviesCardList = ({ movies, savedMovies, onSaveMovie, handleMore, restOfMovieList }) => {
     const location = useLocation();
 
     return (
@@ -14,15 +14,15 @@ const MoviesCardList = ({ movies, onSaveMovie, onDeleteMovie }) => {
                 <ul className='movies__cards'>
                     {movies.map((movie) => (
                         <MoviesCard
-                            key={movie.movieId}
+                            key={movie.movieId || movie.id}
                             movie={movie}
+                            savedMovies={savedMovies}
                             isSavedMoviesPage={location.pathname === '/saved-movies'}
                             onSaveMovie={onSaveMovie}
-                            onDeleteMovie={onDeleteMovie}
                         />
                     ))}
                 </ul>
-                <button className='movies__button'>Ещё</button>
+                {location.pathname !== '/saved-movies' && restOfMovieList.length > 0 && (<button className='movies__button' onClick={handleMore}>Ещё</button>)}
             </div>
         </section>
     );

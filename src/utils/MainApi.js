@@ -1,3 +1,5 @@
+import { getFromLocalStorage } from './utils';
+
 class MainApi {
     constructor(options) {
         // baseUrl - базовая часть url-адреса запроса
@@ -66,13 +68,10 @@ class MainApi {
     // Метод получения данных пользователя с сервера
     // получает данные текущего пользователя и
     // возвращает промис {Promise} - объект текущего пользователя
-    getUserData(jwt) {
+    getUserData() {
         return fetch(`${this._baseUrl}/users/me`, {
             method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${jwt}`,
-            }
+            headers: this._headers,
         })
             .then(res => {
                 return this._checkResponse(res)
@@ -81,13 +80,10 @@ class MainApi {
 
     // Метод изменения данных пользователя data (имеет 2 параметра: name, email + авторизацию)
     // возвращает промис {Promise} - новый объект пользователя
-    changeUserData({ name, email }, jwt) {
+    changeUserData({ name, email }) {
         return fetch(`${this._baseUrl}/users/me`, {
             method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${jwt}`,
-            },
+            headers: this._headers,
             body: JSON.stringify({
                 name: name,
                 email: email
@@ -98,16 +94,13 @@ class MainApi {
             });
     }
 
-    // Метод получения всех сохраненных фильмов (параметр - jwt)
+    // Метод получения всех сохраненных фильмов
     // получает карточки сохраненных фильмов с сервера и
     // возвращает промис {Promise} - массив карточек
-    getSavedMovies(jwt) {
+    getSavedMovies() {
         return fetch(`${this._baseUrl}/movies`, {
             method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${jwt}`,
-            },
+            headers: this._headers,
         })
             .then(res => {
                 return this._checkResponse(res)
@@ -116,25 +109,11 @@ class MainApi {
 
     // Метод добавления карточки фильма в сохраненные (объект имеет параметры: объект-фильм + авторизация-jwt)
     // возвращает промис {Promise} - объект новой карточки
-    saveMovie(movie, jwt) {
+    saveMovie(movie) {
         return fetch(`${this._baseUrl}/movies`, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${jwt}`,
-            },
-            body: JSON.stringify({
-                id: movie.id,
-                nameRU: movie.nameRU,
-                nameEN: movie.nameEN,
-                director: movie.director,
-                country: movie.country,
-                year: movie.year,
-                duration: movie.duration,
-                description: movie.description,
-                trailerLink: movie.trailerLink,
-                image: movie.image,
-            })
+            headers: this._headers,
+            body: JSON.stringify(movie),
         })
             .then(res => {
                 return this._checkResponse(res)
@@ -143,33 +122,19 @@ class MainApi {
 
     // Метод удаления фильма с идентификатором id (принимает id + авторизация-jwt)
     // возвращает промис {Promise} - ответ с сервера
-    delMovie(id, jwt) {
-        return fetch(`${this._baseUrl}/movies/${id}`, {
+    delMovie(movieId) {
+        return fetch(`${this._baseUrl}/movies/${movieId}`, {
             method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${jwt}`,
-            }
+            headers: this._headers,
         })
             .then(res => {
                 return this._checkResponse(res)
             });
     }
 
-/*    // Метод изменения лайка карточки (имеет 2 свойства: cardID-идентификатор, isLiked-статус)
-    // возвращает промис {Promise} - массив новых лайков
-    changeLikeCardStatus(cardID, isLiked, jwt) {
-        return fetch(`${this._baseUrl}/cards/${cardID}/likes`, {
-            method: `${!isLiked ? 'DELETE' : 'PUT'}`,
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${jwt}`,
-            }
-        })
-            .then(res => {
-                return this._checkResponse(res)
-            });
-    }*/
+    updateToken() {
+        this._headers.Authorization = `Bearer ${getFromLocalStorage('jwt')}`;
+    }
 }
 
 /*++++++++++++++++++++API+++++++++++++++++++++++*/
@@ -177,7 +142,7 @@ const mainApi = new MainApi({
     baseUrl: 'https://api.movexplorer.kolobok.nomoredomains.rocks',
     headers: {
         'Content-Type': 'application/json',
-        // 'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
+        'Authorization': `Bearer ${getFromLocalStorage('jwt')}`,
     }
 });
 

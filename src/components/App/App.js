@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {Route, Routes, useNavigate} from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 
 import './App.css';
 
@@ -10,29 +10,111 @@ import Profile from '../Profile/Profile';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
 import Page404 from '../Page404/Page404';
-import { CurrentUserContextProvider } from '../../context/CurrentUserContext';
+import InfoTooltip from '../InfoTooltip/InfoTooltip';
 
+import CurrentUserContext from '../../context/CurrentUserContext';
+
+import MainApi from '../../utils/MainApi';
+import { authError, updateError, updateSuccess } from '../../utils/constants';
+import { addToLocalStorage, getFromLocalStorage, removeFromLocalStorage } from '../../utils/utils';
 
 function App() {
-    // Задаем переменную состояния аутентификации
-    const [isLoading, setIsLoading] = useState(false);
     // Логин
-    const [isLoggedIn, setIsLoggedIn] = useState(true);
-    const [isSaved, setIsSaved] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    // Текущий пользователь
+    const [currentUser, setCurrentUser] = useState({});
+    // Попап
+    const [isPopupOpen, setIsPopupOpen] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('')
+    // Прелоадер
+    const [isLoading, setIsLoading] = useState(false);
 
     const navigate = useNavigate();
 
-    function handleClickSave() {
-        setIsSaved((state) => !state);
+    useEffect(() => {
+            const jwt = getFromLocalStorage('jwt');
+            if (jwt) {
+                getUserData();
+            }
+    }, []);
+
+    async function getUserData() {
+            setIsLoading(true);
+            try {
+                await MainApi.getUserData()
+                    .then((data) => {
+                        console.log(data);
+                        setCurrentUser(data);
+                        setIsLoggedIn(true);
+                    });
+            } catch (err) {
+                console.log(`Произошла ошибка при авторизации: ${err}`);
+            } finally {
+                setIsLoading(false);
+            }
+    }
+
+    async function onLogin(data) {
+        setIsLoading(true);
+        try {
+            await MainApi.authorize(data)
+                .then((res) => {
+                    if (res.token) {
+                        setIsLoggedIn(true);
+                        addToLocalStorage('jwt', res.token);
+                        MainApi.updateToken();
+                        getUserData();
+                        navigate('/movies');
+                    }
+                });
+        } catch (err) {
+            setErrorMessage(authError);
+            setIsPopupOpen(true);
+            console.log(`Произошла ошибка при авторизации: ${err}`);
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
+    async function onUpdateUser(name, email) {
+        setIsLoading(true);
+        const jwt = getFromLocalStorage('jwt');
+        if (!jwt) {
+            return;
+        }
+        try {
+            await MainApi.changeUserData({name, email});
+            setCurrentUser ({name, email});
+            setErrorMessage(updateSuccess);
+            setIsPopupOpen(true);
+        } catch(err) {
+            setErrorMessage(updateError);
+            setIsPopupOpen(true);
+            console.log(`Произошла ошибка при обновлении данных пользователя: ${err}`);
+        } finally {
+            setIsLoading(false);
+        }
     }
 
     function onSignOut() {
+        removeFromLocalStorage('jwt');
+        removeFromLocalStorage('movies');
+        removeFromLocalStorage('moviesSwitcher');
+        removeFromLocalStorage('moviesSearchValues');
+        removeFromLocalStorage('savedMovies');
+        removeFromLocalStorage('savedMoviesSwitcher');
+        removeFromLocalStorage('savedMoviesSearchValues');
         setIsLoggedIn(false);
         navigate('/sign-in');
     }
 
+    function closePopup() {
+        setIsPopupOpen(false);
+        setErrorMessage('');
+    }
+
     return (
-        <CurrentUserContextProvider setIsLoading={setIsLoading}>
+        <CurrentUserContext.Provider value={currentUser}>
             <div className='page'>
                 <Routes>
 
@@ -41,7 +123,7 @@ function App() {
                     }/>
 
                     <Route path='/sign-in' element={
-                        <Login/>
+                        <Login onLogin={onLogin}/>
                     }/>
 
                     <Route path='/' element={
@@ -50,15 +132,12 @@ function App() {
 
                     <Route path='/movies' element={
                         <Movies
-                            isLoading={isLoading}
                             isLoggedIn={isLoggedIn}
-                            onSaveMovie={handleClickSave}
                         />
                     }/>
 
                     <Route path='/saved-movies' element={
                         <SavedMovies
-                            isLoading={isLoading}
                             isLoggedIn={isLoggedIn}
                         />
                     }/>
@@ -66,7 +145,8 @@ function App() {
                     <Route path='/profile' element={
                         <Profile
                             isLoggedIn={isLoggedIn}
-                            onUpdateUser={(name, email) => {return {name, email}}}
+                            onUpdateUser={onUpdateUser}
+                            isLoading={isLoading}
                             onSignOut={onSignOut}
                         />
                     }/>
@@ -76,8 +156,12 @@ function App() {
                     }/>
 
                 </Routes>
+                <InfoTooltip isOpen={isPopupOpen}
+                             message={errorMessage}
+                             onClose={closePopup}
+                />
             </div>
-        </CurrentUserContextProvider>
+        </CurrentUserContext.Provider>
     );
 }
 

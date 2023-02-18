@@ -11,7 +11,7 @@ const Login = ({ onLogin }) => {
     const navigateHome = () => {
         navigate('/');
     }
-    const {enteredValues, errors, handleChange, isFormValid} = useForm({});
+    const { enteredValues, errors, handleChange, isFormValid } = useForm({});
 
     const handleSubmit = (e) => {
         // Запрещаем браузеру переходить по адресу формы
@@ -28,7 +28,9 @@ const Login = ({ onLogin }) => {
     return (
         <main className='main'>
             <section className='section__block section__block_type_login'>
-                <div className='login__container'>
+                <form className='form login__container'
+                      onSubmit={handleSubmit}
+                      noValidate>
                     <div className='login__wrapper'>
                         <div className='login__header'>
                             <img className='link login__logo'
@@ -39,9 +41,7 @@ const Login = ({ onLogin }) => {
                         </div>
                         <h1 className='login__title'>Рады видеть!</h1>
 
-                        <form className='form login__form'
-                              onSubmit={handleSubmit}
-                              noValidate>
+                        <div className='login__form'>
                             <label className='login__label' htmlFor='email'>E-mail</label>
                             <input className='login__input'
                                    type='email'
@@ -66,7 +66,7 @@ const Login = ({ onLogin }) => {
                                    required
                             />
                             <span className='login__input-error' id='password-error'>{errors.password}</span>
-                        </form>
+                        </div>
                     </div>
 
                     <div className='login__bottom'>
@@ -77,12 +77,12 @@ const Login = ({ onLogin }) => {
                         </button>
                         <p className='login__link-text'>
                             Ещё не зарегистрированы?
-                            <Link className='link login__link' to='/sign-in'>
+                            <Link className='link login__link' to='/sign-up'>
                                 Регистрация
                             </Link>
                         </p>
                     </div>
-                </div>
+                </form>
             </section>
         </main>
     )
