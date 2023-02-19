@@ -15,7 +15,7 @@ import InfoTooltip from '../InfoTooltip/InfoTooltip';
 import CurrentUserContext from '../../context/CurrentUserContext';
 
 import MainApi from '../../utils/MainApi';
-import { authError, updateError, updateSuccess } from '../../utils/constants';
+import { authError, registerError, registerSuccess, updateError, updateSuccess } from '../../utils/constants';
 import { addToLocalStorage, getFromLocalStorage, removeFromLocalStorage } from '../../utils/utils';
 
 function App() {
@@ -68,9 +68,27 @@ function App() {
                     }
                 });
         } catch (err) {
-            setErrorMessage(authError);
+            setErrorMessage(`${authError}: ${err}`);
             setIsPopupOpen(true);
             console.log(`Произошла ошибка при авторизации: ${err}`);
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
+    async function onRegister({ name, email, password }) {
+        setIsLoading(true);
+        try {
+            await MainApi.register({ name, email, password })
+                .then(() => {
+                    setErrorMessage(registerSuccess);
+                    setIsPopupOpen(true);
+                    onLogin({email, password});
+                });
+        } catch (err) {
+            setErrorMessage(`${registerError}: ${err}`);
+            setIsPopupOpen(true);
+            console.log(`Произошла ошибка при регистрации: ${err}`);
         } finally {
             setIsLoading(false);
         }
@@ -88,7 +106,7 @@ function App() {
             setErrorMessage(updateSuccess);
             setIsPopupOpen(true);
         } catch(err) {
-            setErrorMessage(updateError);
+            setErrorMessage(`${updateError}: ${err}`);
             setIsPopupOpen(true);
             console.log(`Произошла ошибка при обновлении данных пользователя: ${err}`);
         } finally {
@@ -119,7 +137,7 @@ function App() {
                 <Routes>
 
                     <Route path='/sign-up' element={
-                        <Register/>
+                        <Register onRegister={onRegister}/>
                     }/>
 
                     <Route path='/sign-in' element={

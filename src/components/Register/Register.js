@@ -33,7 +33,9 @@ const Register = ({ onRegister }) => {
     return (
         <main className='main'>
             <section className='section__block section__block_type_register'>
-                <div className='register__container'>
+                <form className='form register__container'
+                      onSubmit={handleSubmit}
+                      noValidate>
                     <div className='register__wrapper'>
                         <div className='register__header'>
                             <img className='link register__logo'
@@ -44,9 +46,7 @@ const Register = ({ onRegister }) => {
                         </div>
                         <h1 className='register__title'>Добро пожаловать!</h1>
 
-                        <form className='form register__form'
-                              onSubmit={handleSubmit}
-                              noValidate>
+                        <div className='register__form'>
                             <label className='register__label' htmlFor='name'>Имя</label>
                             <input
                                 className='register__input'
@@ -78,7 +78,7 @@ const Register = ({ onRegister }) => {
                             <span className='register__input-error' id='email-error'>{errors.email}</span>
 
                             <label className='register__label' htmlFor='password'>
-                                Пароль (должен содержать минимум 6 символов, не менее 1 заглавной буквы, 1 строчной
+                                Пароль (должен содержать минимум 8 символов, не менее 1 заглавной буквы, 1 строчной
                                 буквы, 1 цифры и 1 специального символа)
                             </label>
                             <input className='register__input'
@@ -88,13 +88,13 @@ const Register = ({ onRegister }) => {
                                    placeholder='Пароль'
                                    value={enteredValues.password || ''}
                                    onChange={handleChange}
-                                   minLength={6}
+                                   minLength={8}
                                    autoComplete='off'
                                    pattern={regExPassword}
                                    required
                             />
                             <span className='register__input-error' id='password-error'>{errors.password}</span>
-                        </form>
+                        </div>
                     </div>
 
                     <div className='register__bottom'>
@@ -109,7 +109,7 @@ const Register = ({ onRegister }) => {
                             </Link>
                         </p>
                     </div>
-                </div>
+                </form>
             </section>
         </main>
     )
