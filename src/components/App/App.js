@@ -124,7 +124,7 @@ function App() {
         removeFromLocalStorage('savedMoviesSwitcher');
         removeFromLocalStorage('savedMoviesSearchValues');
         setIsLoggedIn(false);
-        navigate('/sign-in');
+        navigate('/');
     }
 
     function closePopup() {

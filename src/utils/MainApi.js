@@ -1,4 +1,5 @@
 import { getFromLocalStorage } from './utils';
+import { BASE_URL } from './constants';
 
 class MainApi {
     constructor(options) {
@@ -139,7 +140,7 @@ class MainApi {
 
 /*++++++++++++++++++++API+++++++++++++++++++++++*/
 const mainApi = new MainApi({
-    baseUrl: 'https://api.movexplorer.kolobok.nomoredomains.rocks',
+    baseUrl: BASE_URL,
     headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${getFromLocalStorage('jwt')}`,

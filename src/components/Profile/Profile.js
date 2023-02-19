@@ -10,7 +10,7 @@ import Preloader from '../Preloader/Preloader';
 import {updateError} from "../../utils/constants";
 
 const Profile = ({ isLoggedIn, onUpdateUser, onSignOut, isLoading }) => {
-    // Текущий пользователь
+    // Текущий пользователь (подписка на контекст)
     const currentUser = useContext(CurrentUserContext);
     // Переключение режима редактирования
     const [isEditMode, setIsEditMode] = useState(false);

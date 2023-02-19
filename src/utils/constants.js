@@ -45,6 +45,7 @@ export const regExPassword = '^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[-#!$@%^&*_+~
    (?=.*[-#!$@%^&*_+~=:;?])    - минимум один символ из набора */
 
 export const MOVIES_BASE_URL = 'https://api.nomoreparties.co';
+export const BASE_URL = 'https://api.movexplorer.kolobok.nomoredomains.rocks';
 
 export const saveMoviesError = 'Произошла ошибка при сохранении фильма';
 export const deleteMoviesError = 'Произошла ошибка при удалении фильма';
