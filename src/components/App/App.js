@@ -11,12 +11,13 @@ import Register from '../Register/Register';
 import Login from '../Login/Login';
 import Page404 from '../Page404/Page404';
 import InfoTooltip from '../InfoTooltip/InfoTooltip';
+import ProtectedRoute from '../ProtectedRoute';
 
 import CurrentUserContext from '../../context/CurrentUserContext';
 
-import MainApi from '../../utils/MainApi';
 import { authError, registerError, registerSuccess, updateError, updateSuccess } from '../../utils/constants';
 import { addToLocalStorage, getFromLocalStorage, removeFromLocalStorage } from '../../utils/utils';
+import mainApi from '../../utils/MainApi';
 
 function App() {
     // Логин
@@ -41,7 +42,7 @@ function App() {
     async function getUserData() {
             setIsLoading(true);
             try {
-                await MainApi.getUserData()
+                await mainApi.getUserData()
                     .then((data) => {
                         console.log(data);
                         setCurrentUser(data);
@@ -57,12 +58,12 @@ function App() {
     async function onLogin(data) {
         setIsLoading(true);
         try {
-            await MainApi.authorize(data)
+            await mainApi.authorize(data)
                 .then((res) => {
                     if (res.token) {
                         setIsLoggedIn(true);
                         addToLocalStorage('jwt', res.token);
-                        MainApi.updateToken();
+                        mainApi.updateToken();
                         getUserData();
                         navigate('/movies');
                     }
@@ -79,7 +80,7 @@ function App() {
     async function onRegister({ name, email, password }) {
         setIsLoading(true);
         try {
-            await MainApi.register({ name, email, password })
+            await mainApi.register({ name, email, password })
                 .then(() => {
                     setErrorMessage(registerSuccess);
                     setIsPopupOpen(true);
@@ -101,7 +102,7 @@ function App() {
             return;
         }
         try {
-            await MainApi.changeUserData({name, email});
+            await mainApi.changeUserData({name, email});
             setCurrentUser ({name, email});
             setErrorMessage(updateSuccess);
             setIsPopupOpen(true);
@@ -134,46 +135,53 @@ function App() {
     return (
         <CurrentUserContext.Provider value={currentUser}>
             <div className='page'>
-                <Routes>
+                    <Routes>
 
-                    <Route path='/sign-up' element={
-                        <Register onRegister={onRegister}/>
-                    }/>
+                        <Route path='/sign-up' element={
+                            <Register onRegister={onRegister}/>
+                        }/>
 
-                    <Route path='/sign-in' element={
-                        <Login onLogin={onLogin}/>
-                    }/>
+                        <Route path='/sign-in' element={
+                            <Login onLogin={onLogin}/>
+                        }/>
 
-                    <Route path='/' element={
-                        <Main isLoggedIn={isLoggedIn}/>
-                    }/>
+                        <Route path='/' element={
+                                <Main isLoggedIn={isLoggedIn}/>
+                        }/>
 
-                    <Route path='/movies' element={
-                        <Movies
-                            isLoggedIn={isLoggedIn}
-                        />
-                    }/>
+                        <Route path='/movies' element={
+                            <ProtectedRoute>
+                                <Movies
+                                    isLoggedIn={isLoggedIn}
+                                />
+                            </ProtectedRoute>
+                        }/>
 
-                    <Route path='/saved-movies' element={
-                        <SavedMovies
-                            isLoggedIn={isLoggedIn}
-                        />
-                    }/>
+                        <Route path='/saved-movies' element={
+                            <ProtectedRoute>
+                                <SavedMovies
+                                    isLoggedIn={isLoggedIn}
+                                />
+                            </ProtectedRoute>
+                        }/>
 
-                    <Route path='/profile' element={
-                        <Profile
-                            isLoggedIn={isLoggedIn}
-                            onUpdateUser={onUpdateUser}
-                            isLoading={isLoading}
-                            onSignOut={onSignOut}
-                        />
-                    }/>
+                        <Route path='/profile' element={
+                            <ProtectedRoute>
+                                <Profile
+                                    isLoggedIn={isLoggedIn}
+                                    onUpdateUser={onUpdateUser}
+                                    isLoading={isLoading}
+                                    onSignOut={onSignOut}
+                                />
+                            </ProtectedRoute>
+                        }/>
 
-                    <Route path='*' element={
-                        <Page404/>
-                    }/>
+                        <Route path='*' element={
+                            <Page404/>
+                        }/>
 
-                </Routes>
+                    </Routes>
+
                 <InfoTooltip isOpen={isPopupOpen}
                              message={errorMessage}
                              onClose={closePopup}
