@@ -14,7 +14,7 @@ const Portfolio = () => {
         },
         {
             title: 'Одностраничное приложение',
-            ref: 'https://github.com/KoLob-OK/react-mesto-api-full'
+            ref: 'https://mesto-nn.students.nomoredomains.club'
         },
     ];
 
