@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import './MoviesCard.css';
 
@@ -10,7 +11,7 @@ const MoviesCard = ({ movie, savedMovies, isSavedMoviesPage, onSaveMovie }) => {
     // Создаем переменную ширины экрана устройства
     const [width, setWidth] = useState(window.innerWidth);
 
-    const [isSavedMovie, setIsSavedMovie] = useState(movie.isLiked);
+    const [isSavedMovie, setIsSavedMovie] = useState(false);
     // Задаем границу ширины мобильного устройства
     const isMobile = width < 768;
     const cardRef = useRef();
@@ -20,6 +21,7 @@ const MoviesCard = ({ movie, savedMovies, isSavedMoviesPage, onSaveMovie }) => {
     // Создаём переменную, которую после зададим в `className` для кнопки удаления
     const cardDeleteButtonClassName = 'link card__del-button';
 
+    const location = useLocation();
 
     // Создаем эффект добавления/удаления слушателя наведения мыши на карточку
     useEffect(() => {
@@ -64,10 +66,23 @@ const MoviesCard = ({ movie, savedMovies, isSavedMoviesPage, onSaveMovie }) => {
         });
     }
 
+    useEffect(() => {
+        if (location.pathname === '/movies') {
+            const savedMovie = savedMovies.filter((item) => {
+                return item.movieId === movie.id;
+            });
+
+            if (savedMovie.length > 0) {
+                setIsSavedMovie(true);
+            } else {
+                setIsSavedMovie(false);
+            }
+        }
+    }, [location.pathname, savedMovies, movie.id]);
+
     // Обработчик клика кнопки удаления
     function handleDeleteClick() {
         onSaveMovie(movie);
-        setIsSavedMovie(false);
     }
 
     return (
