@@ -15,7 +15,9 @@ const Profile = ({ isLoggedIn, onUpdateUser, onSignOut, isLoading }) => {
     // Переключение режима редактирования
     const [isEditMode, setIsEditMode] = useState(false);
     const [error, setError] = useState('');
-    const {enteredValues, errors, handleChange, isFormValid, resetForm} = useForm({});
+    const {enteredValues, errors, handleChange,
+        /*handleNameChange, handleEmailChange,*/
+        isFormValid, resetForm} = useForm({});
 
     useEffect(() => {
         currentUser ? resetForm(currentUser) : resetForm();
