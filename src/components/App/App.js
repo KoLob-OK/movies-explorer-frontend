@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes, useNavigate, Navigate } from 'react-router-dom';
 
 import './App.css';
 
@@ -44,7 +44,6 @@ function App() {
             try {
                 await mainApi.getUserData()
                     .then((data) => {
-                        console.log(data);
                         setCurrentUser(data);
                         setIsLoggedIn(true);
                     });
@@ -138,11 +137,11 @@ function App() {
                     <Routes>
 
                         <Route path='/sign-up' element={
-                            <Register onRegister={onRegister}/>
+                            isLoggedIn ? <Navigate to='/movies' replace /> : <Register onRegister={onRegister} />
                         }/>
 
                         <Route path='/sign-in' element={
-                            <Login onLogin={onLogin}/>
+                            isLoggedIn ? <Navigate to='/movies' replace /> : <Login onLogin={onLogin} />
                         }/>
 
                         <Route path='/' element={
