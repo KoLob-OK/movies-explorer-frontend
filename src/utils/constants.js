@@ -47,6 +47,8 @@ export const regExPassword = '^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[-#!$@%^&*_+~
 export const MOVIES_BASE_URL = 'https://api.nomoreparties.co';
 export const BASE_URL = 'https://api.movexplorer.kolobok.nomoredomains.rocks';
 
+export const MAX_DURATION_SHORT_MOVIE = 40;
+
 export const saveMoviesError = 'Произошла ошибка при сохранении фильма';
 export const deleteMoviesError = 'Произошла ошибка при удалении фильма';
 export const searchMoviesError = 'Нужно ввести ключевое слово';

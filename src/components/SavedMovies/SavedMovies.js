@@ -9,9 +9,9 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Footer from '../Footer/Footer';
 import Navigation from '../Navigation/Navigation';
 import InfoTooltip from '../InfoTooltip/InfoTooltip';
-import {addToLocalStorage, getFromLocalStorage, removeFromLocalStorage} from '../../utils/utils';
-import {deleteMoviesError, saveMoviesError, serverError} from "../../utils/constants";
-import mainApi from "../../utils/MainApi";
+import { addToLocalStorage, getFromLocalStorage, removeFromLocalStorage } from '../../utils/utils';
+import { MAX_DURATION_SHORT_MOVIE, deleteMoviesError, saveMoviesError, serverError } from '../../utils/constants';
+import mainApi from '../../utils/MainApi';
 
 const SavedMovies = ({ isLoggedIn }) => {
     // Массив фильмов
@@ -40,8 +40,8 @@ const SavedMovies = ({ isLoggedIn }) => {
         if (switcher) {
             setMoviesShowedWithSwitcher(moviesShowed);
             setMoviesWithSwitcher(movies);
-            filterDataShowed = moviesShowed.filter(({ duration }) => duration <= 40);
-            filterData = movies.filter(({ duration }) => duration <= 40);
+            filterDataShowed = moviesShowed.filter(({ duration }) => duration <= MAX_DURATION_SHORT_MOVIE);
+            filterData = movies.filter(({ duration }) => duration <= MAX_DURATION_SHORT_MOVIE);
         } else {
             filterDataShowed = moviesShowedWithSwitcher;
             filterData = moviesWithSwitcher;
@@ -59,7 +59,7 @@ const SavedMovies = ({ isLoggedIn }) => {
         try {
             let filterData = movies.filter(({ nameRU }) => nameRU.toLowerCase().includes(searchValues.toLowerCase()));
 
-            if (switcher) filterData = filterData.filter(({ duration }) => duration <= 40);
+            if (switcher) filterData = filterData.filter(({ duration }) => duration <= MAX_DURATION_SHORT_MOVIE);
 
             setMoviesShowed(filterData);
 

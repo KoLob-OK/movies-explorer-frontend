@@ -14,6 +14,7 @@ import mainApi from '../../utils/MainApi';
 import { addToLocalStorage, getFromLocalStorage, removeFromLocalStorage } from '../../utils/utils';
 import {
     MOVIES_BASE_URL,
+    MAX_DURATION_SHORT_MOVIE,
     downloadMoviesError,
     searchMoviesError,
     deleteMoviesError,
@@ -38,7 +39,7 @@ const Movies = ({ isLoggedIn }) => {
     const [errorMessage, setErrorMessage] = useState('');
     // Прелоадер
     const [isLoading, setIsLoading] = useState(false);
-    // Счетчик фильмов
+    // Счетчик загружаемых фильмов
     const [moviesCount, setMoviesCount] = useState([]);
     // Переключатель "Короткометражки"
     const [moviesSwitcher, setMoviesSwitcher] = useState(false);
@@ -114,8 +115,8 @@ const Movies = ({ isLoggedIn }) => {
         if (switcher) {
             setMoviesShowedWithSwitcher(moviesShowed);
             setMoviesWithSwitcher(movies);
-            filterDataShowed = moviesShowed.filter(({ duration }) => duration <= 40);
-            filterData = movies.filter(({ duration }) => duration <= 40);
+            filterDataShowed = moviesShowed.filter(({ duration }) => duration <= MAX_DURATION_SHORT_MOVIE);
+            filterData = movies.filter(({ duration }) => duration <= MAX_DURATION_SHORT_MOVIE);
         } else {
             filterDataShowed = moviesShowedWithSwitcher;
             filterData = moviesWithSwitcher;
