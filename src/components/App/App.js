@@ -68,8 +68,7 @@ function App() {
                     }
                 });
         } catch (err) {
-            setErrorMessage(`${authError}: ${err}`);
-            setIsPopupOpen(true);
+            openPopup(`${authError}: ${err}`);
             console.log(`Произошла ошибка при авторизации: ${err}`);
         } finally {
             setIsLoading(false);
@@ -81,13 +80,11 @@ function App() {
         try {
             await mainApi.register({ name, email, password })
                 .then(() => {
-                    setErrorMessage(registerSuccess);
-                    setIsPopupOpen(true);
+                    openPopup(registerSuccess);
                     onLogin({email, password});
                 });
         } catch (err) {
-            setErrorMessage(`${registerError}: ${err}`);
-            setIsPopupOpen(true);
+            openPopup(`${registerError}: ${err}`);
             console.log(`Произошла ошибка при регистрации: ${err}`);
         } finally {
             setIsLoading(false);
@@ -103,11 +100,9 @@ function App() {
         try {
             await mainApi.changeUserData({name, email});
             setCurrentUser ({name, email});
-            setErrorMessage(updateSuccess);
-            setIsPopupOpen(true);
+            openPopup(updateSuccess);
         } catch(err) {
-            setErrorMessage(`${updateError}: ${err}`);
-            setIsPopupOpen(true);
+            openPopup(`${updateError}: ${err}`);
             console.log(`Произошла ошибка при обновлении данных пользователя: ${err}`);
         } finally {
             setIsLoading(false);
@@ -124,6 +119,11 @@ function App() {
         removeFromLocalStorage('savedMoviesSearchValues');
         setIsLoggedIn(false);
         navigate('/');
+    }
+
+    function openPopup(message) {
+        setErrorMessage(message);
+        setIsPopupOpen(true);
     }
 
     function closePopup() {
@@ -152,6 +152,7 @@ function App() {
                             <ProtectedRoute>
                                 <Movies
                                     isLoggedIn={isLoggedIn}
+                                    openPopup={openPopup}
                                 />
                             </ProtectedRoute>
                         }/>
@@ -160,6 +161,7 @@ function App() {
                             <ProtectedRoute>
                                 <SavedMovies
                                     isLoggedIn={isLoggedIn}
+                                    openPopup={openPopup}
                                 />
                             </ProtectedRoute>
                         }/>

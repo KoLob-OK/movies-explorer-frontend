@@ -56,7 +56,6 @@ const MoviesCard = ({ movie, savedMovies, isSavedMoviesPage, onSaveMovie }) => {
 
     // Обработчик клика кнопки сохранения
     function handleSaveClick() {
-        console.log(savedMovies);
         const newSavedMovie = !isSavedMovie;
         const savedMovie = savedMovies.filter((item) => {
             return item.movieId === movie.id;

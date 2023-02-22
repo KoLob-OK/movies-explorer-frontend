@@ -8,7 +8,6 @@ import SearchForm from '../SearchForm/SearchForm';
 import Preloader from '../Preloader/Preloader';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Footer from '../Footer/Footer';
-import InfoTooltip from '../InfoTooltip/InfoTooltip';
 import moviesApi from '../../utils/MoviesApi';
 import mainApi from '../../utils/MainApi';
 import { addToLocalStorage, getFromLocalStorage, removeFromLocalStorage } from '../../utils/utils';
@@ -19,10 +18,11 @@ import {
     searchMoviesError,
     deleteMoviesError,
     saveMoviesError,
+    nothingSearched,
 } from '../../utils/constants';
 import getRenderMoviesCount from '../../utils/getRenderMoviesCount';
 
-const Movies = ({ isLoggedIn }) => {
+const Movies = ({ isLoggedIn, openPopup }) => {
     // Массив фильмов
     const [movies, setMovies] = useState([]);
     // Массив сохраненных в БД на сервере фильмов
@@ -33,10 +33,6 @@ const Movies = ({ isLoggedIn }) => {
     const [moviesWithSwitcher, setMoviesWithSwitcher] = useState([]);
     // Массив показываемых короткометражек
     const [moviesShowedWithSwitcher, setMoviesShowedWithSwitcher] = useState([]);
-    // Попап с информацией
-    const [isPopupOpen, setIsPopupOpen] = useState(false);
-    // Текст сообщения об ошибке
-    const [errorMessage, setErrorMessage] = useState('');
     // Прелоадер
     const [isLoading, setIsLoading] = useState(false);
     // Счетчик загружаемых фильмов
@@ -45,8 +41,6 @@ const Movies = ({ isLoggedIn }) => {
     const [moviesSwitcher, setMoviesSwitcher] = useState(false);
     // Данные из формы поиска
     const [moviesSearchValues, setMoviesSearchValues] = useState('');
-    // Ничего не найдено
-    const [nothingSearched, setNothingSearched] = useState(false);
 
     useEffect(() => {
         setMoviesCount(getRenderMoviesCount());
@@ -72,12 +66,9 @@ const Movies = ({ isLoggedIn }) => {
         addToLocalStorage('moviesSwitcher', null);
 
         if (!searchValues) {
-            setErrorMessage(searchMoviesError);
-            setIsPopupOpen(true);
+            openPopup(searchMoviesError);
             return false;
         }
-
-        setErrorMessage('');
         setIsLoading(true);
 
         try {
@@ -90,15 +81,14 @@ const Movies = ({ isLoggedIn }) => {
             const spliceData = filterDataWithLiked.splice(0, moviesCount[0]);
 
             if(filterData.length === 0) {
-                setNothingSearched(true)
+                openPopup(nothingSearched);
             }
             setMoviesShowed(spliceData);
             setMovies(filterDataWithLiked);
             setMoviesShowedWithSwitcher(spliceData);
             setMoviesWithSwitcher(filterDataWithLiked);
         } catch (err) {
-            setErrorMessage(downloadMoviesError);
-            setIsPopupOpen(true);
+            openPopup(downloadMoviesError);
             setMovies([]);
             removeFromLocalStorage('movies');
             removeFromLocalStorage('moviesSwitcher');
@@ -148,8 +138,7 @@ const Movies = ({ isLoggedIn }) => {
                 const newSaved = await mainApi.getSavedMovies();
                 setMoviesSaved(newSaved);
             } catch(err) {
-                setErrorMessage(saveMoviesError);
-                setIsPopupOpen(true);
+                openPopup(saveMoviesError);
                 console.log(`Произошла ошибка при сохранении фильма: ${err}`);
             }
         } else {
@@ -158,20 +147,10 @@ const Movies = ({ isLoggedIn }) => {
                 const newSaved = await mainApi.getSavedMovies();
                 setMoviesSaved(newSaved);
             } catch(err) {
-                setErrorMessage(deleteMoviesError);
-                setIsPopupOpen(true);
+                openPopup(deleteMoviesError);
                 console.log(`Произошла ошибка при удалении фильма: ${err}`);
             }
         }
-    }
-
-    function closePopup() {
-        setIsPopupOpen(false);
-        setErrorMessage('');
-    }
-
-    function closePopupNothingSearched() {
-        setNothingSearched(false);
     }
 
     useEffect(() => {
@@ -187,8 +166,7 @@ const Movies = ({ isLoggedIn }) => {
                     console.log('Сохраненные фильмы успешно загружены');
                 })
                 .catch((err) => {
-                    setErrorMessage(downloadMoviesError);
-                    setIsPopupOpen(true);
+                    openPopup(downloadMoviesError);
                     console.log(`Произошла ошибка при загрузке фильмов: ${err}`);
                 });
 
@@ -219,6 +197,7 @@ const Movies = ({ isLoggedIn }) => {
             <Header isLoginPanelVisible={!isLoggedIn}>
                 <Navigation isMenuVisible={isLoggedIn}/>
             </Header>
+
             <main className='main'>
                 <SearchForm handleGetMovies={handleGetMovies}
                             handleGetShorties={handleGetShorties}
@@ -231,14 +210,7 @@ const Movies = ({ isLoggedIn }) => {
                                                             restOfMovieList={movies}
                                                             handleMore={handleMore}/>}
             </main>
-            <InfoTooltip isOpen={isPopupOpen}
-                         message={errorMessage}
-                         onClose={closePopup}
-            />
-            <InfoTooltip isOpen={nothingSearched}
-                         message={'Ничего не найдено'}
-                         onClose={closePopupNothingSearched}
-            />
+
             <Footer/>
         </>
     );

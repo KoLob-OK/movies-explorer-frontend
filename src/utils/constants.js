@@ -52,6 +52,7 @@ export const MAX_DURATION_SHORT_MOVIE = 40;
 export const saveMoviesError = 'Произошла ошибка при сохранении фильма';
 export const deleteMoviesError = 'Произошла ошибка при удалении фильма';
 export const searchMoviesError = 'Нужно ввести ключевое слово';
+export const nothingSearched = 'Ничего не найдено';
 export const downloadMoviesError = 'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз';
 export const serverError = 'На сервере произошла ошибка';
 export const authError = 'Произошла ошибка при авторизации';

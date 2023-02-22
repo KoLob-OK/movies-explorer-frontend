@@ -8,12 +8,12 @@ import Preloader from '../Preloader/Preloader';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Footer from '../Footer/Footer';
 import Navigation from '../Navigation/Navigation';
-import InfoTooltip from '../InfoTooltip/InfoTooltip';
+
 import { addToLocalStorage, getFromLocalStorage, removeFromLocalStorage } from '../../utils/utils';
 import { MAX_DURATION_SHORT_MOVIE, deleteMoviesError, saveMoviesError, serverError } from '../../utils/constants';
 import mainApi from '../../utils/MainApi';
 
-const SavedMovies = ({ isLoggedIn }) => {
+const SavedMovies = ({ isLoggedIn, openPopup }) => {
     // Массив фильмов
     const [movies, setMovies] = useState([]);
     // Массив показываемых фильмов
@@ -22,10 +22,6 @@ const SavedMovies = ({ isLoggedIn }) => {
     const [moviesWithSwitcher, setMoviesWithSwitcher] = useState([]);
     // Массив показываемых короткометражек
     const [moviesShowedWithSwitcher, setMoviesShowedWithSwitcher] = useState([]);
-    // Попап с информацией
-    const [isPopupOpen, setIsPopupOpen] = useState(false);
-    // Текст сообщения об ошибке
-    const [errorMessage, setErrorMessage] = useState('');
     // Прелоадер
     const [isLoading, setIsLoading] = useState(false);
     // Переключатель "Короткометражки"
@@ -73,9 +69,7 @@ const SavedMovies = ({ isLoggedIn }) => {
                 removeFromLocalStorage('savedMoviesSearchValues');
             }
         } catch (err) {
-            setErrorMessage(saveMoviesError);
-            setIsPopupOpen(true);
-
+            openPopup(saveMoviesError);
             setMovies([]);
             removeFromLocalStorage('savedMovies');
             removeFromLocalStorage('savedMoviesSwitcher');
@@ -93,15 +87,9 @@ const SavedMovies = ({ isLoggedIn }) => {
                 setMovies(newMovies)
                 setMoviesShowed(newMovies);
             } catch {
-                setErrorMessage(deleteMoviesError);
-                setIsPopupOpen(true);
+                openPopup(deleteMoviesError);
             }
         }
-    }
-
-    function closePopup() {
-        setIsPopupOpen(false);
-        setErrorMessage('');
     }
 
     useEffect(() => {
@@ -109,13 +97,11 @@ const SavedMovies = ({ isLoggedIn }) => {
             mainApi
                 .getSavedMovies()
                 .then((data) => {
-                    console.log(data);
                     setMovies(data);
                     setMoviesShowed(data);
                 })
-                .catch((err) => {
-                    setErrorMessage(serverError);
-                    setIsPopupOpen(true);
+                .catch(() => {
+                    openPopup(serverError);
                 });
 
             const localStorageMovies = getFromLocalStorage('savedMovies');
@@ -154,10 +140,6 @@ const SavedMovies = ({ isLoggedIn }) => {
                                                             onSaveMovie={handleSaveClick} />}
             </main>
             <Footer/>
-            <InfoTooltip isOpen={isPopupOpen}
-                         message={errorMessage}
-                         onClose={closePopup}
-            />
         </>
     );
 }
