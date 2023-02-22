@@ -134,9 +134,10 @@ const Movies = ({ isLoggedIn, openPopup }) => {
                 thumbnail: MOVIES_BASE_URL + movie.image.formats.thumbnail.url,
             };
             try {
-                await mainApi.saveMovie(dataMovies);
-                const newSaved = await mainApi.getSavedMovies();
-                setMoviesSaved(newSaved);
+                const newSaved = await mainApi.saveMovie(dataMovies);
+                if (newSaved) {
+                    setMoviesSaved((movies) => [...movies, newSaved.movie]);
+                }
             } catch(err) {
                 openPopup(saveMoviesError);
                 console.log(`Произошла ошибка при сохранении фильма: ${err}`);
@@ -144,8 +145,8 @@ const Movies = ({ isLoggedIn, openPopup }) => {
         } else {
             try {
                 await mainApi.delMovie(movie._id);
-                const newSaved = await mainApi.getSavedMovies();
-                setMoviesSaved(newSaved);
+                setMoviesSaved((movies) =>
+                    movies.filter((newSaved) => newSaved._id !== movie._id));
             } catch(err) {
                 openPopup(deleteMoviesError);
                 console.log(`Произошла ошибка при удалении фильма: ${err}`);

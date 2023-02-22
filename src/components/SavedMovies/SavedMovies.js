@@ -83,9 +83,10 @@ const SavedMovies = ({ isLoggedIn, openPopup }) => {
         if (!isSavedMovie) {
             try {
                 await mainApi.delMovie(movie._id);
-                const newMovies = await mainApi.getSavedMovies();
-                setMovies(newMovies)
-                setMoviesShowed(newMovies);
+                setMovies((movies) =>
+                    movies.filter((newSaved) => newSaved._id !== movie._id));
+                setMoviesShowed((movies) =>
+                    movies.filter((newSaved) => newSaved._id !== movie._id));
             } catch {
                 openPopup(deleteMoviesError);
             }
