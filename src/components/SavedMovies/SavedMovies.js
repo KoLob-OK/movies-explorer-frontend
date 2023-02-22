@@ -9,7 +9,6 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Footer from '../Footer/Footer';
 import Navigation from '../Navigation/Navigation';
 
-import { addToLocalStorage, getFromLocalStorage, removeFromLocalStorage } from '../../utils/utils';
 import { MAX_DURATION_SHORT_MOVIE, deleteMoviesError, saveMoviesError, serverError } from '../../utils/constants';
 import mainApi from '../../utils/MainApi';
 
@@ -42,9 +41,6 @@ const SavedMovies = ({ isLoggedIn, openPopup }) => {
             filterDataShowed = moviesShowedWithSwitcher;
             filterData = moviesWithSwitcher;
         }
-
-        addToLocalStorage('movies', JSON.stringify(filterDataShowed.concat(filterData)));
-        addToLocalStorage('moviesSwitcher', switcher);
         setMoviesShowed(filterDataShowed);
         setMovies(filterData);
     }
@@ -58,22 +54,9 @@ const SavedMovies = ({ isLoggedIn, openPopup }) => {
             if (switcher) filterData = filterData.filter(({ duration }) => duration <= MAX_DURATION_SHORT_MOVIE);
 
             setMoviesShowed(filterData);
-
-            if (searchValues) {
-                addToLocalStorage('savedMovies', JSON.stringify(filterData));
-                addToLocalStorage('savedMoviesSwitcher', switcher);
-                addToLocalStorage('savedMoviesSearchValues', searchValues);
-            } else {
-                removeFromLocalStorage('savedMovies');
-                removeFromLocalStorage('savedMoviesSwitcher');
-                removeFromLocalStorage('savedMoviesSearchValues');
-            }
         } catch (err) {
             openPopup(saveMoviesError);
             setMovies([]);
-            removeFromLocalStorage('savedMovies');
-            removeFromLocalStorage('savedMoviesSwitcher');
-            removeFromLocalStorage('savedMoviesSearchValues');
         } finally {
             setIsLoading(false);
         }
@@ -104,23 +87,6 @@ const SavedMovies = ({ isLoggedIn, openPopup }) => {
                 .catch(() => {
                     openPopup(serverError);
                 });
-
-            const localStorageMovies = getFromLocalStorage('savedMovies');
-
-            if (localStorageMovies) {
-                setMovies(JSON.parse(localStorageMovies));
-            }
-
-            const localStorageMoviesSwitcher = getFromLocalStorage('savedMoviesSwitcher');
-            const localStorageMoviesSearchValues = getFromLocalStorage('savedMoviesSearchValues');
-
-            if (localStorageMoviesSwitcher) {
-                setMoviesSwitcher(localStorageMoviesSwitcher === 'true');
-            }
-
-            if (localStorageMoviesSearchValues) {
-                setMoviesSearchValues(localStorageMoviesSearchValues);
-            }
         }
     }, [isLoggedIn]);
 
