@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from 'react';
+import { useLocation } from 'react-router-dom';
 
 import './SearchForm.css';
 
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
-import {MAX_DURATION_SHORT_MOVIE} from "../../utils/constants";
-import {addToLocalStorage} from "../../utils/utils";
-import {useLocation} from "react-router-dom";
+import { MAX_DURATION_SHORT_MOVIE } from '../../utils/constants';
+import { addToLocalStorage } from '../../utils/utils';
 
 const SearchForm = ({
                         handleGetMovies,

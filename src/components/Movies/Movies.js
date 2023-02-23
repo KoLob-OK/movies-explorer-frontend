@@ -13,7 +13,6 @@ import mainApi from '../../utils/MainApi';
 import { addToLocalStorage, getFromLocalStorage, removeFromLocalStorage } from '../../utils/utils';
 import {
     MOVIES_BASE_URL,
-    MAX_DURATION_SHORT_MOVIE,
     downloadMoviesError,
     searchMoviesError,
     deleteMoviesError,
