@@ -111,12 +111,10 @@ function App() {
 
     function onSignOut() {
         removeFromLocalStorage('jwt');
+        removeFromLocalStorage('allMovies');
         removeFromLocalStorage('movies');
         removeFromLocalStorage('moviesSwitcher');
         removeFromLocalStorage('moviesSearchValues');
-        removeFromLocalStorage('savedMovies');
-        removeFromLocalStorage('savedMoviesSwitcher');
-        removeFromLocalStorage('savedMoviesSearchValues');
         setIsLoggedIn(false);
         navigate('/');
     }

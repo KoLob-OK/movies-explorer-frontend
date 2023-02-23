@@ -41,6 +41,7 @@ const Movies = ({ isLoggedIn, openPopup }) => {
     const [moviesSwitcher, setMoviesSwitcher] = useState(false);
     // Данные из формы поиска
     const [moviesSearchValues, setMoviesSearchValues] = useState('');
+    const [isGetMoviesFirst, setIsGetMoviesFirst] = useState(true)
 
     useEffect(() => {
         setMoviesCount(getRenderMoviesCount());
@@ -61,7 +62,27 @@ const Movies = ({ isLoggedIn, openPopup }) => {
 
     // console.log(moviesSaved)
 
-    async function handleGetMovies(searchValues) {
+    function setMoviesData(movies, searchValues) {
+        const filterData = movies.filter(({nameRU}) => nameRU.toLowerCase().includes(searchValues.toLowerCase()));
+        const filterDataWithLiked = filterData.map(item => ({
+            ...item,
+            isLiked: moviesSaved.some(saved => saved.movieId === item.id)
+        }));
+        addToLocalStorage('movies', JSON.stringify(filterDataWithLiked));
+        addToLocalStorage('moviesSearchValues', searchValues);
+
+        const spliceData = filterDataWithLiked.splice(0, moviesCount[0]);
+
+        if (filterData.length === 0) {
+            openPopup(nothingSearched);
+        }
+        setMoviesShowed(spliceData);
+        setMovies(filterDataWithLiked);
+        setMoviesShowedWithSwitcher(spliceData);
+        setMoviesWithSwitcher(filterDataWithLiked);
+    }
+
+    async function handleGetMoviesFirst(searchValues) {
         setMoviesSwitcher(false);
         addToLocalStorage('moviesSwitcher', null);
 
@@ -73,20 +94,9 @@ const Movies = ({ isLoggedIn, openPopup }) => {
 
         try {
             const movies = await moviesApi.getMovies();
-            const filterData = movies.filter(({ nameRU }) => nameRU.toLowerCase().includes(searchValues.toLowerCase()));
-            const filterDataWithLiked = filterData.map(item => ({...item, isLiked: moviesSaved.some(saved => saved.movieId === item.id)}));
-            addToLocalStorage('movies', JSON.stringify(filterDataWithLiked));
-            addToLocalStorage('moviesSearchValues', searchValues);
-
-            const spliceData = filterDataWithLiked.splice(0, moviesCount[0]);
-
-            if(filterData.length === 0) {
-                openPopup(nothingSearched);
-            }
-            setMoviesShowed(spliceData);
-            setMovies(filterDataWithLiked);
-            setMoviesShowedWithSwitcher(spliceData);
-            setMoviesWithSwitcher(filterDataWithLiked);
+            addToLocalStorage('allMovies', JSON.stringify(movies))
+            setMoviesData(movies, searchValues);
+            setIsGetMoviesFirst(false);
         } catch (err) {
             openPopup(downloadMoviesError);
             setMovies([]);
@@ -98,24 +108,19 @@ const Movies = ({ isLoggedIn, openPopup }) => {
         }
     }
 
-    async function handleGetShorties(switcher) {
-        let filterDataShowed;
-        let filterData;
+    function handleGetMovies(searchValues) {
+        setMoviesSwitcher(false);
+        addToLocalStorage('moviesSwitcher', null);
 
-        if (switcher) {
-            setMoviesShowedWithSwitcher(moviesShowed);
-            setMoviesWithSwitcher(movies);
-            filterDataShowed = moviesShowed.filter(({ duration }) => duration <= MAX_DURATION_SHORT_MOVIE);
-            filterData = movies.filter(({ duration }) => duration <= MAX_DURATION_SHORT_MOVIE);
-        } else {
-            filterDataShowed = moviesShowedWithSwitcher;
-            filterData = moviesWithSwitcher;
+        if (!searchValues) {
+            openPopup(searchMoviesError);
+            return false;
         }
+        setIsLoading(true);
 
-        addToLocalStorage('movies', JSON.stringify(filterDataShowed.concat(filterData)));
-        addToLocalStorage('moviesSwitcher', switcher);
-        setMoviesShowed(filterDataShowed);
-        setMovies(filterData);
+        const movies = getFromLocalStorage('allMovies');
+        setMoviesData(JSON.parse(movies), searchValues);
+        setIsLoading(false);
     }
 
     async function handleSaveClick(movie, isSavedMovie) {
@@ -138,7 +143,7 @@ const Movies = ({ isLoggedIn, openPopup }) => {
                 if (newSaved) {
                     setMoviesSaved((movies) => [...movies, newSaved.movie]);
                 }
-            } catch(err) {
+            } catch (err) {
                 openPopup(saveMoviesError);
                 console.log(`Произошла ошибка при сохранении фильма: ${err}`);
             }
@@ -147,7 +152,7 @@ const Movies = ({ isLoggedIn, openPopup }) => {
                 await mainApi.delMovie(movie._id);
                 setMoviesSaved((movies) =>
                     movies.filter((newSaved) => newSaved._id !== movie._id));
-            } catch(err) {
+            } catch (err) {
                 openPopup(deleteMoviesError);
                 console.log(`Произошла ошибка при удалении фильма: ${err}`);
             }
@@ -200,10 +205,17 @@ const Movies = ({ isLoggedIn, openPopup }) => {
             </Header>
 
             <main className='main'>
-                <SearchForm handleGetMovies={handleGetMovies}
-                            handleGetShorties={handleGetShorties}
+                <SearchForm handleGetMovies={isGetMoviesFirst ? handleGetMoviesFirst : handleGetMovies}
                             moviesSwitcher={moviesSwitcher}
                             moviesSearchValues={moviesSearchValues}
+                            moviesWithSwitcher={moviesWithSwitcher}
+                            setMoviesWithSwitcher={setMoviesWithSwitcher}
+                            moviesShowedWithSwitcher={moviesShowedWithSwitcher}
+                            setMoviesShowedWithSwitcher={setMoviesShowedWithSwitcher}
+                            movies={movies}
+                            setMovies={setMovies}
+                            moviesShowed={moviesShowed}
+                            setMoviesShowed={setMoviesShowed}
                 />
                 {isLoading ? <Preloader/> : <MoviesCardList movies={moviesShowed}
                                                             savedMovies={moviesSaved}

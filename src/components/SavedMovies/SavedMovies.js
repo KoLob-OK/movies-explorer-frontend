@@ -23,27 +23,6 @@ const SavedMovies = ({ isLoggedIn, openPopup }) => {
     const [moviesShowedWithSwitcher, setMoviesShowedWithSwitcher] = useState([]);
     // Прелоадер
     const [isLoading, setIsLoading] = useState(false);
-    // Переключатель "Короткометражки"
-    const [moviesSwitcher, setMoviesSwitcher] = useState(false);
-    // Данные из формы поиска
-    const [moviesSearchValues, setMoviesSearchValues] = useState('');
-
-    async function handleGetShorties(switcher) {
-        let filterDataShowed;
-        let filterData;
-
-        if (switcher) {
-            setMoviesShowedWithSwitcher(moviesShowed);
-            setMoviesWithSwitcher(movies);
-            filterDataShowed = moviesShowed.filter(({ duration }) => duration <= MAX_DURATION_SHORT_MOVIE);
-            filterData = movies.filter(({ duration }) => duration <= MAX_DURATION_SHORT_MOVIE);
-        } else {
-            filterDataShowed = moviesShowedWithSwitcher;
-            filterData = moviesWithSwitcher;
-        }
-        setMoviesShowed(filterDataShowed);
-        setMovies(filterData);
-    }
 
     async function handleGetMovies(searchValues, switcher) {
         setIsLoading(true);
@@ -97,9 +76,16 @@ const SavedMovies = ({ isLoggedIn, openPopup }) => {
             </Header>
             <main className='main'>
                 <SearchForm handleGetMovies={handleGetMovies}
-                            moviesSwitcher={moviesSwitcher}
-                            moviesSearchValues={moviesSearchValues}
-                            handleGetShorties={handleGetShorties}
+                            moviesSwitcher={false}
+                            moviesSearchValues={''}
+                            moviesWithSwitcher={moviesWithSwitcher}
+                            setMoviesWithSwitcher={setMoviesWithSwitcher}
+                            moviesShowedWithSwitcher={moviesShowedWithSwitcher}
+                            setMoviesShowedWithSwitcher={setMoviesShowedWithSwitcher}
+                            movies={movies}
+                            setMovies={setMovies}
+                            moviesShowed={moviesShowed}
+                            setMoviesShowed={setMoviesShowed}
                 />
                 {isLoading ? <Preloader/> : <MoviesCardList movies={moviesShowed}
                                                             savedMovies={moviesShowed}

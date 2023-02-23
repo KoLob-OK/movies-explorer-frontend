@@ -10,12 +10,13 @@ class MainApi {
     }
 
     // Метод проверки статуса ответа
-    _checkResponse(res) {
+    async _checkResponse(res) {
         if (res.ok) {
             return res.json();
         }
         // если ошибка, отклоняем промис
-        return Promise.reject(`Ошибка: ${res.status}`)
+        const error = await res.text();
+        return Promise.reject(`Ошибка: ${JSON.parse(error).message}`)
     }
 
     // Метод регистрации пользователя (принимает объект с 3-мя параметрами: name, email, password)
