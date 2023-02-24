@@ -4,17 +4,26 @@ import { Link, useLocation } from 'react-router-dom';
 import './AuthForm.css';
 
 import useForm from '../../hooks/useForm';
-import { regExEmail } from '../../utils/constants';
+import { regExEmail, regExPassword, regExName, regExAnySymbols } from '../../utils/constants';
 
 function AuthForm({ onSubmit }) {
     const location = useLocation();
     const { enteredValues, errors, handleChange, isFormValid } = useForm({});
 
+    const checkEnteredValues = (enteredValues) => {
+        const checkForSignIn = !enteredValues.email || !enteredValues.password;
+        const checkFromSignUp = !enteredValues.name || !enteredValues.email || !enteredValues.password;
+
+        return location.pathname === '/sign-up' ? checkFromSignUp : checkForSignIn
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (!enteredValues.name || !enteredValues.email || !enteredValues.password) {
+
+        if (checkEnteredValues(enteredValues)) {
             return;
         }
+
         onSubmit(enteredValues);
     };
 
@@ -33,6 +42,7 @@ function AuthForm({ onSubmit }) {
                         placeholder='Имя'
                         value={enteredValues.name || ''}
                         onChange={handleChange}
+                        pattern={regExName}
                         minLength={2}
                         maxLength={30}
                         autoComplete='off'
@@ -66,6 +76,7 @@ function AuthForm({ onSubmit }) {
                    placeholder='Пароль'
                    value={enteredValues.password || ''}
                    onChange={handleChange}
+                   pattern={location.pathname === "/sign-up" ? regExPassword : regExAnySymbols}
                    required
             />
             <span className='auth__input-error' id='password-error'>{errors.password}</span>
