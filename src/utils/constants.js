@@ -44,9 +44,9 @@ export const regExPassword = '^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[-#!$@%^&*_+~
    (?=.*[A-Z])                 - минимум одна буква в верхнем регистре
    (?=.*[-#!$@%^&*_+~=:;?])    - минимум один символ из набора */
 
-export const regExAnySymbols = '^.+$';
-
 export const regExName = '[A-Za-zА-Яа-яЁё\\s-]+';
+
+export const regExAnySymbols = '^.+$';
 
 export const MOVIES_BASE_URL = 'https://api.nomoreparties.co';
 export const BASE_URL = 'https://api.movexplorer.kolobok.nomoredomains.rocks';
@@ -65,5 +65,7 @@ export const updateSuccess  = 'Данные успешно изменены';
 export const updateError  = 'Произошла ошибка при обновлении данных пользователя';
 export const registerSuccess = 'Поздравляем! Успешная регистрация!';
 export const registerError = 'Произошла ошибка при регистрации';
-
-
+export const nameValidationError = 'Поле может содержать буквы, пробел, дефис';
+export const emailValidationError = 'Поле должно содержать корректный адрес электронной почты';
+export const passwordValidationError = 'Поле должно содержать минимум 8 символов, не менее 1 заглавной буквы, ' +
+    '1 строчной буквы, 1 цифры и 1 специального символа';

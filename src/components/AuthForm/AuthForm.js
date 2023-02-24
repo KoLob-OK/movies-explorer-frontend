@@ -65,10 +65,7 @@ function AuthForm({ onSubmit }) {
             />
             <span className='auth__input-error' id='email-error'>{errors.email}</span>
 
-            <label className='auth__label' htmlFor='password'>
-                {location.pathname === "/sign-in" ? "Пароль" : "Пароль (должен содержать минимум 8 символов, " +
-                    "не менее 1 заглавной буквы, 1 строчной буквы, 1 цифры и 1 специального символа)"}
-            </label>
+            <label className='auth__label' htmlFor='password'>Пароль</label>
             <input className='auth__input'
                    type='password'
                    name='password'
@@ -77,6 +74,7 @@ function AuthForm({ onSubmit }) {
                    value={enteredValues.password || ''}
                    onChange={handleChange}
                    pattern={location.pathname === "/sign-up" ? regExPassword : regExAnySymbols}
+                   minLength={6}
                    required
             />
             <span className='auth__input-error' id='password-error'>{errors.password}</span>
