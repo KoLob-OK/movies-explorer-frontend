@@ -1,9 +1,8 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import './Login.css';
-import useForm from '../../hooks/useForm';
-import { regExEmail } from '../../utils/constants';
+import AuthForm from '../AuthForm/AuthForm';
 import logo from '../../images/logo.svg';
 
 const Login = ({ onLogin }) => {
@@ -11,26 +10,15 @@ const Login = ({ onLogin }) => {
     const navigateHome = () => {
         navigate('/');
     }
-    const { enteredValues, errors, handleChange, isFormValid } = useForm({});
 
-    const handleSubmit = (e) => {
-        // Запрещаем браузеру переходить по адресу формы
-        e.preventDefault();
-        // Проверяем, есть ли обязательные данные
-        if (!enteredValues.email || !enteredValues.password) {
-            // если нет данных, то возвращаем
-            return;
-        }
-        // если есть данные, то передаём значения управляемых компонентов во внешний обработчик
-        onLogin(enteredValues);
+    const handleSubmit = (data) => {
+        onLogin(data);
     };
 
     return (
         <main className='main'>
             <section className='section__block section__block_type_login'>
-                <form className='form login__container'
-                      onSubmit={handleSubmit}
-                      noValidate>
+                <div className='login__container'>
                     <div className='login__wrapper'>
                         <div className='login__header'>
                             <img className='link login__logo'
@@ -40,49 +28,9 @@ const Login = ({ onLogin }) => {
                             />
                         </div>
                         <h1 className='login__title'>Рады видеть!</h1>
-
-                        <div className='login__form'>
-                            <label className='login__label' htmlFor='email'>E-mail</label>
-                            <input className='login__input'
-                                   type='email'
-                                   name='email'
-                                   id='email'
-                                   placeholder='Email'
-                                   value={enteredValues.email || ''}
-                                   onChange={handleChange}
-                                   pattern={regExEmail}
-                                   required
-                            />
-                            <span className='login__input-error' id='email-error'>{errors.email}</span>
-
-                            <label className='login__label' htmlFor='password'>Пароль</label>
-                            <input className='login__input'
-                                   type='password'
-                                   name='password'
-                                   id='password'
-                                   placeholder='Пароль'
-                                   value={enteredValues.password || ''}
-                                   onChange={handleChange}
-                                   required
-                            />
-                            <span className='login__input-error' id='password-error'>{errors.password}</span>
-                        </div>
+                        <AuthForm onSubmit={handleSubmit} />
                     </div>
-
-                    <div className='login__bottom'>
-                        <button className='login__button'
-                                type='submit'
-                                disabled={!isFormValid}>
-                            Войти
-                        </button>
-                        <p className='login__link-text'>
-                            Ещё не зарегистрированы?
-                            <Link className='link login__link' to='/sign-up'>
-                                Регистрация
-                            </Link>
-                        </p>
-                    </div>
-                </form>
+                </div>
             </section>
         </main>
     )
