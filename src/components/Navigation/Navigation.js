@@ -19,6 +19,12 @@ const Navigation = ({ isMenuVisible }) => {
         setIsOpen((state) => !state);
     }
 
+    if (isOpen) {
+        document.body.style.overflow = 'hidden';
+    } else {
+        document.body.style.overflow = 'unset';
+    }
+
     return (
         isMenuVisible && (<div className='navigation'>
             <button
