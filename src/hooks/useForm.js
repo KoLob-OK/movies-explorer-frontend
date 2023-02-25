@@ -23,6 +23,7 @@ const useForm = () => {
         const name = e.target.name;
         const value = e.target.value;
 
+        // подключаем кастомное сообщение полю "Почта"
         if (name === 'email') {
             if (!isEmail(value)) {
                 e.target.setCustomValidity(emailValidationError);
@@ -31,6 +32,7 @@ const useForm = () => {
             }
         }
 
+        // подключаем кастомное сообщение полю "Имя" при регистрации нового пользователя
         if (name === 'name' && location.pathname === '/sign-up') {
             if (!value.match(regExName)) {
                 e.target.setCustomValidity(nameValidationError);
@@ -40,6 +42,7 @@ const useForm = () => {
             }
         }
 
+        // подключаем кастомное сообщение полю "Пароль" при регистрации нового пользователя
         if (name === 'password' && location.pathname === '/sign-up') {
             if (!value.match(regExPassword)) {
                 e.target.setCustomValidity(passwordValidationError);
@@ -59,57 +62,13 @@ const useForm = () => {
             [name]: e.target.validationMessage,
         });
 
-        // 1 вариант - сравнение введенных данных с текущим пользователем
+       // проверка на совпадение вводимых данных с текущим пользователем при редактировании
         if (value !== currentUser.name && value !== currentUser.email) {
             setIsFormValid(e.target.closest(".form").checkValidity());
         } else {
             setIsFormValid(false);
         }
-        // setIsFormValid(e.target.closest(".form").checkValidity());
     };
-
-    // 2 вариант - создание отдельных обработчиков для полей name и email:
-/*    const handleNameChange = (e) => {
-        const name = e.target.name;
-        const value = e.target.value;
-
-        setEnteredValues({
-            ...enteredValues,
-            [name]: value,
-        });
-
-        setErrors({
-            ...errors,
-            [name]: e.target.validationMessage,
-        });
-
-        if (value !== currentUser.name) {
-            setIsFormValid(e.target.closest(".form").checkValidity());
-        } else {
-            setIsFormValid(false);
-        }
-    };*/
-
-/*    const handleEmailChange = (e) => {
-        const name = e.target.name;
-        const value = e.target.value;
-
-        setEnteredValues({
-            ...enteredValues,
-            [name]: value,
-        });
-
-        setErrors({
-            ...errors,
-            [name]: e.target.validationMessage,
-        });
-
-        if (value !== currentUser.email) {
-            setIsFormValid(e.target.closest(".form").checkValidity());
-        } else {
-            setIsFormValid(false);
-        }
-    };*/
 
     const resetForm = useCallback(
         (newValues = {}, newErrors = {}, newIsFormValid = false) => {
@@ -124,8 +83,6 @@ const useForm = () => {
         enteredValues,
         errors,
         handleChange,
-        // handleNameChange,
-        // handleEmailChange,
         isFormValid,
         resetForm,
     };
