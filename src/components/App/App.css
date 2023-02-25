@@ -1,11 +1,14 @@
+.root {
+    background-color: #202020;
+}
+
 .page {
-    /*max-width: 1280px;*/
+    max-width: 1280px;
     margin: 0 auto;
     font-family: 'Inter', Arial, sans-serif;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    background-color: #202020;
 }
 
 .section__title {
