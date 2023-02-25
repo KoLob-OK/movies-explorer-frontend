@@ -1,5 +1,6 @@
 ### Дипломный проект обучения студентов от [Яндекс.Практикум](https://practicum.yandex.ru) ([курс «Веб‑разработчик»](https://practicum.yandex.ru/web "курс «Веб‑разработчик»")).
 
+## [Pull request](https://github.com/KoLob-OK/movies-explorer-frontend/pull/2 "Pull request")  
 # Проект `Movies Explorer` (фронтенд)
 
 Репозиторий для приложения проекта `Movies Explorer` включает фронтенд приложения со следующими возможностями:
@@ -36,9 +37,10 @@
 в [Figma](https://www.figma.com/file/8L48A70IRu1C2WflKSZrM3/Diploma-(Copy)?node-id=891%3A3857&t=XQe0RwV23RqcJXVv-1).
 ## Ссылки
 
-IP 158.160.34.81
+IP 158.160.49.62
 
-[Backend:](https://api.movexplorer.kolobok.nomoredomains.rocks "Внимание! Ссылка ведет на серверную часть приложения")  https://api.movexplorer.kolobok.nomoredomains.rocks
+[Backend:](https://api.movexplorer.kolobok.nomoredomains.rocks "Внимание! Ссылка ведет на серверную часть приложения")  https://api.movexplorer.kolobok.nomoredomains.rocks  
+[Frontend:](https://movexplorer.kolobok.nomoredomains.rocks "Приложение Movies Explorer")  https://movexplorer.kolobok.nomoredomains.rocks
 ***
 Проект "Movies Explorer" является отличной платформой для создания пользователем своей любимой коллекции фильмов.
 

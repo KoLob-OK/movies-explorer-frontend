@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import './Navigation.css';
 
-const Navigation = ({isMenuVisible}) => {
+const Navigation = ({ isMenuVisible }) => {
     const location = useLocation();
     const navigate = useNavigate();
     const navigateLinks = {
@@ -13,10 +13,16 @@ const Navigation = ({isMenuVisible}) => {
         profile: '/profile',
     }
 
-    const [isOpen, setIsOpen] = React.useState(false);
+    const [ isOpen, setIsOpen ] = React.useState(false);
 
     function toggleMenu() {
         setIsOpen((state) => !state);
+    }
+
+    if (isOpen) {
+        document.body.style.overflow = 'hidden';
+    } else {
+        document.body.style.overflow = 'unset';
     }
 
     return (
@@ -42,21 +48,24 @@ const Navigation = ({isMenuVisible}) => {
                     <ul className='navigation__list'>
                         <li className='navigation__list-item'>
                             <Link
-                                className={`link navigation__link ${location.pathname === navigateLinks.home ? 'navigation__link_active' : ''}`}
+                                className={`link navigation__link ${location.pathname === navigateLinks.home 
+                                    ? 'navigation__link_active' : ''}`}
                                 to={navigateLinks.home}>
                                 Главная
                             </Link>
                         </li>
                         <li className='navigation__list-item'>
                             <Link
-                                className={`link navigation__link ${location.pathname === navigateLinks.films ? 'navigation__link_active' : ''}`}
+                                className={`link navigation__link ${location.pathname === navigateLinks.films 
+                                    ? 'navigation__link_active' : ''}`}
                                 to={navigateLinks.films}>
                                 Фильмы
                             </Link>
                         </li>
                         <li className='navigation__list-item'>
                             <Link
-                                className={`link navigation__link ${location.pathname === navigateLinks.savedFilms ? 'navigation__link_active' : ''}`}
+                                className={`link navigation__link ${location.pathname === navigateLinks.savedFilms 
+                                    ? 'navigation__link_active' : ''}`}
                                 to={navigateLinks.savedFilms}>
                                 Сохранённые фильмы
                             </Link>

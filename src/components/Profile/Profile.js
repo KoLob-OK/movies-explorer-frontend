@@ -1,40 +1,46 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 
 import './Profile.css';
 
 import Header from '../Header/Header';
 import Navigation from '../Navigation/Navigation';
 import useForm from '../../hooks/useForm';
-import {UserContext} from '../../context/UserContext';
+import CurrentUserContext from '../../context/CurrentUserContext';
+import Preloader from '../Preloader/Preloader';
+import {updateError} from "../../utils/constants";
 
-const Profile = ({ isLoggedIn, onUpdateUser, onSignOut }) => {
-    // Подписка на контекст
-    const user = useContext(UserContext);
-
-    const [welcomeName, setWelcomeName] = useState(user.name)
+const Profile = ({ isLoggedIn, onUpdateUser, onSignOut, isLoading }) => {
+    // Текущий пользователь (подписка на контекст)
+    const currentUser = useContext(CurrentUserContext);
+    // Переключение режима редактирования
     const [isEditMode, setIsEditMode] = useState(false);
     const [error, setError] = useState('');
-    const {enteredValues, errors, handleChange, isFormValid} = useForm({});
+    const {enteredValues, errors, handleChange,
+        /*handleNameChange, handleEmailChange,*/
+        isFormValid, resetForm} = useForm({});
+
+    useEffect(() => {
+        currentUser ? resetForm(currentUser) : resetForm();
+    }, [resetForm, currentUser]);
 
     async function handleSubmit(e) {
         e.preventDefault();
 
         try {
-            const user = await onUpdateUser(enteredValues.name, enteredValues.email);
-            console.log(user);
-            if (user) {
-                setWelcomeName(user.name);
-            }
+            await onUpdateUser(enteredValues.name, enteredValues.email);
         } catch (e) {
-            setError('Упс');
+            setError(updateError);
+        }
+        finally {
+            setIsEditMode(false);
         }
     }
 
     const FormError = () => {
         return Object.keys(errors).map((key, index) => {
-            return errors[key] ? <span key={index} className='profile__error' id='profile__error'>
+            return errors[key] && <span key={index} className='profile__error' id='profile__error'>
                         {`${key}: ${errors[key]}`}
-                    </span> : <></>
+                    </span>
         })
     }
 
@@ -46,7 +52,7 @@ const Profile = ({ isLoggedIn, onUpdateUser, onSignOut }) => {
             <main className='main'>
                 <section className='section__block section__block_type_profile'>
                     <div className='profile__container'>
-                        <h1 className='profile__title'>{`Привет, ${welcomeName || 'Пользователь'}!`}</h1>
+                        <h1 className='profile__title'>{`Привет, ${currentUser.name || 'Пользователь'}!`}</h1>
                         <form className='form profile___form'
                               onSubmit={handleSubmit}
                               noValidate>
@@ -80,6 +86,7 @@ const Profile = ({ isLoggedIn, onUpdateUser, onSignOut }) => {
                             </div>
                         </form>
                     </div>
+                    {isLoading && <Preloader /> }
                     {!isEditMode && (<div className='profile__bottom'>
                         <button className='link profile__submit'
                                 onClick={() => {

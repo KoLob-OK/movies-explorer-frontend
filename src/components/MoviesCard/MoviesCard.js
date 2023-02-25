@@ -1,19 +1,27 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import './MoviesCard.css';
 
-const MoviesCard = ({ movie, isSavedMoviesPage, onSaveMovie, onDeleteMovie }) => {
+import { convertTime } from '../../utils/utils';
+import { MOVIES_BASE_URL } from "../../utils/constants";
+
+const MoviesCard = ({ movie, savedMovies, isSavedMoviesPage, onSaveMovie }) => {
     const [isMouseInCard, setIsMouseInCard] = useState(false);
     // Создаем переменную ширины экрана устройства
     const [width, setWidth] = useState(window.innerWidth);
+
+    const [isSavedMovie, setIsSavedMovie] = useState(false);
     // Задаем границу ширины мобильного устройства
     const isMobile = width < 768;
     const cardRef = useRef();
     // Создаём переменную, которую после зададим в `className` для кнопки сохранения
-    const cardSaveButtonClassName = (`card__like ${movie.isLiked ? 'card__like_active' : ''}`);
+    const cardSaveButtonClassName = (`card__like ${isSavedMovie ? 'card__like_active' : ''}`);
+
     // Создаём переменную, которую после зададим в `className` для кнопки удаления
     const cardDeleteButtonClassName = 'link card__del-button';
 
+    const location = useLocation();
 
     // Создаем эффект добавления/удаления слушателя наведения мыши на карточку
     useEffect(() => {
@@ -48,19 +56,46 @@ const MoviesCard = ({ movie, isSavedMoviesPage, onSaveMovie, onDeleteMovie }) =>
 
     // Обработчик клика кнопки сохранения
     function handleSaveClick() {
-        onSaveMovie(movie);
+        const newSavedMovie = !isSavedMovie;
+        const savedMovie = savedMovies.filter((item) => {
+            return item.movieId === movie.id;
+        });
+        onSaveMovie({ ...movie, _id: savedMovie.length > 0 ? savedMovie[0]._id : null }, newSavedMovie).then(()=>{
+            setIsSavedMovie(true)
+        });
     }
+
+    useEffect(() => {
+        if (location.pathname === '/movies') {
+            const savedMovie = savedMovies.filter((item) => {
+                return item.movieId === movie.id;
+            });
+
+            if (savedMovie.length > 0) {
+                setIsSavedMovie(true);
+            } else {
+                setIsSavedMovie(false);
+            }
+        }
+    }, [location.pathname, savedMovies, movie.id]);
 
     // Обработчик клика кнопки удаления
     function handleDeleteClick() {
-        onDeleteMovie(movie);
+        onSaveMovie(movie);
     }
 
     return (
         <li className='card' ref={cardRef}>
-            <img className='card__image' src={movie.image} alt={movie.name}/>
+            <a
+                href={movie.trailerLink}
+                className="link card__link"
+                target="_blank"
+                rel="noopener noreferrer">
+            <img className='card__image'
+                 src={isSavedMoviesPage ? movie.image : MOVIES_BASE_URL + movie.image.url} alt={movie.nameRU}/>
+            </a>
             <div className='card__wrapper'>
-                <h3 className='card__name'>{movie.name}</h3>
+                <h3 className='card__name'>{movie.nameRU}</h3>
                 {!isSavedMoviesPage &&
                     <button className={cardSaveButtonClassName}
                             type='button'
@@ -83,7 +118,7 @@ const MoviesCard = ({ movie, isSavedMoviesPage, onSaveMovie, onDeleteMovie }) =>
                     />
                 }
             </div>
-            <p className='card__duration'>{movie.duration}</p>
+            <p className='card__duration'>{convertTime(movie.duration)}</p>
         </li>
     );
 }
